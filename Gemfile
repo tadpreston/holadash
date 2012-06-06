@@ -40,4 +40,5 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 group :test do
   gem "factory_girl_rails", "~> 3.3.0"
   gem "shoulda", "~> 3.0.1"
+  gem 'shoulda-context'
 end

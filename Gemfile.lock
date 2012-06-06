@@ -125,5 +125,6 @@ DEPENDENCIES
   rails (= 3.2.5)
   sass-rails (~> 3.2.3)
   shoulda (~> 3.0.1)
+  shoulda-context
   therubyracer
   uglifier (>= 1.0.3)
