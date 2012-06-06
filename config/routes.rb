@@ -3,6 +3,8 @@ Portal::Application.routes.draw do
 
   resources :users
 
+  root :to => 'welcome#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
