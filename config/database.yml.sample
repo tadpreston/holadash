@@ -4,7 +4,7 @@ development:
   database: portal_development
   pool: 5
   username: portaldb_admin
-  password: nov8ordie
+  password: redacted
   host: localhost
 
 test:
@@ -13,5 +13,5 @@ test:
   database: portal_test
   pool: 5
   username: portaldb_admin
-  password: nov8ordie
+  password: redacted
   host: localhost
