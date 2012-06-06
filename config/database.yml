@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: portal_development
+  pool: 5
+  username: portaldb_admin
+  password: nov8ordie
+  host: localhost
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: portal_test
+  pool: 5
+  username: portaldb_admin
+  password: nov8ordie
+  host: localhost
