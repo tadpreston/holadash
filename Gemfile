@@ -36,3 +36,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use debugger
 # gem 'debugger'
+
+group :test do
+  gem "factory_girl_rails", "~> 3.3.0"
+  gem "shoulda", "~> 3.0.1"
+end
