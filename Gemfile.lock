@@ -28,6 +28,7 @@ GEM
     activesupport (3.2.5)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    ansi (1.4.1)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
@@ -59,6 +60,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.18)
+    minitest (2.10.1)
     multi_json (1.3.6)
     pg (0.13.2)
     polyglot (0.3.3)
@@ -108,6 +110,8 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
+    turn (0.8.3)
+      ansi
     tzinfo (0.3.33)
     uglifier (1.2.4)
       execjs (>= 0.3.0)
@@ -121,10 +125,12 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   factory_girl_rails (~> 3.3.0)
   jquery-rails
+  minitest
   pg
   rails (= 3.2.5)
   sass-rails (~> 3.2.3)
   shoulda (~> 3.0.1)
   shoulda-context
   therubyracer
+  turn (~> 0.8.3)
   uglifier (>= 1.0.3)

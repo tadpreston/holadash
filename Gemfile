@@ -38,6 +38,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'debugger'
 
 group :test do
+  gem 'turn', '~> 0.8.3', :require => false
+  gem 'minitest'
   gem "factory_girl_rails", "~> 3.3.0"
   gem "shoulda", "~> 3.0.1"
   gem 'shoulda-context'
