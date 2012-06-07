@@ -33,5 +33,10 @@ class UserTest < ActiveSupport::TestCase
       user = User.new(roles: ["role1", "role2", "role3"])
       assert_equal "role1|role2|role3", user.roles
     end
+
+    should "remove any blank entries from the array" do
+      user = User.new(roles: ["","role1","role2","","role3"])
+      assert_equal "role1|role2|role3", user.roles
+    end
   end
 end

@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def roles=(roles_array)
+    roles_array = roles_array.delete_if {|r| r.blank?}
     str = roles_array.collect {|r| r}.join('|')
     write_attribute :roles, str
   end

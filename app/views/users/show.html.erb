@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Username:</b>
-  <%= @user.username %>
+  <b>Employee:</b>
+  <%= @user.employee_id %>
 </p>
 
 <p>
-  <b>Email:</b>
-  <%= @user.email %>
+  <b>Username:</b>
+  <%= @user.username %>
 </p>
 
 <p>
@@ -21,18 +21,13 @@
 </p>
 
 <p>
-  <b>Password digest:</b>
-  <%= @user.password_digest %>
+  <b>Email:</b>
+  <%= @user.email %>
 </p>
 
 <p>
-  <b>Role:</b>
-  <%= @user.role %>
-</p>
-
-<p>
-  <b>Employee:</b>
-  <%= @user.employee_id %>
+  <b>Roles:</b>
+  <%= @user.roles.split('|').collect {|r| r.humanize}.join(',')  %>
 </p>
 
 
