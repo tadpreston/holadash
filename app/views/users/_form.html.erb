@@ -32,8 +32,8 @@
     <%= f.text_field :password_digest %>
   </div>
   <div class="field">
-    <%= f.label :role %><br />
-    <%= f.text_field :role %>
+    <%= f.label :roles %><br />
+    <%= f.select :roles, User::ROLES, { prompt: true } %>
   </div>
   <div class="field">
     <%= f.label :employee_id %><br />
