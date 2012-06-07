@@ -15,4 +15,16 @@ class UserTest < ActiveSupport::TestCase
       assert_equal "#{@user.first_name} #{@user.last_name}", @user.full_name
     end
   end
+
+  context "generate_token method" do
+    setup do
+      @user = FactoryGirl.create(:user)
+    end
+
+    should "generate a random value in a specified column" do
+      assert @user.password_reset_token.blank?
+      @user.generate_token(:password_reset_token)
+      assert ! @user.password_reset_token.blank?
+    end
+  end
 end
