@@ -6,7 +6,7 @@ one:
   first_name: MyString
   last_name: MyString
   password_digest: MyString
-  role: MyString
+  roles: MyString
   employee_id: MyString
 
 two:
@@ -15,5 +15,5 @@ two:
   first_name: MyString
   last_name: MyString
   password_digest: MyString
-  role: MyString
+  roles: MyString
   employee_id: MyString
