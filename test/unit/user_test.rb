@@ -27,4 +27,11 @@ class UserTest < ActiveSupport::TestCase
       assert ! @user.password_reset_token.blank?
     end
   end
+
+  context "roles= method" do
+    should "make array of roles into a string of roles" do
+      user = User.new(roles: ["role1", "role2", "role3"])
+      assert_equal "role1|role2|role3", user.roles
+    end
+  end
 end

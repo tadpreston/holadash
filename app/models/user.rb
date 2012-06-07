@@ -34,4 +34,9 @@ class User < ActiveRecord::Base
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
   end
+
+  def roles=(roles_array)
+    str = roles_array.collect {|r| r}.join('|')
+    write_attribute :roles, str
+  end
 end
