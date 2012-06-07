@@ -11,3 +11,19 @@
  *= require_self
  *= require_tree .
  */
+
+body { margin: 0; font-size: 1em; line-height: 1.4; }
+
+#page_header { background-color: #ccc;  }
+
+nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+
+.head_nav { float: right; }
+.head_nav li { float: left; margin-top: 10px; margin-bottom: 10px; margin-left: 10px; padding-right: 10px;  border-right: solid 1px black; }
+.head_nav li.last { border: none; }
+
+#main { width: 960px; margin: 0 auto; padding-top: 15px; }

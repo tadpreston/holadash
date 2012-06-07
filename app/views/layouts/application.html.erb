@@ -8,23 +8,13 @@
 </head>
 <body>
 
-  <header id="page_header" class="clearfix">
-    
-    <nav class="head_nav">
+  <%= render 'header' %>
 
-      <% if current_user %>
-        <ul>
-          <li><%= link_to "Home", root_url %></li>
-          <li>Logged In As <%= current_user.full_name %></li>
-          <li><%= link_to "Log out", logout_path %></li>
-        </ul>
-      <% end %>
+  <div id="main" role="main" class="clearfix">
 
-    </nav>
+    <%= yield %>
 
-  </header>
-
-<%= yield %>
+  </div>
 
 </body>
 </html>
