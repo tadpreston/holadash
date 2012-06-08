@@ -12,7 +12,13 @@
 
   <div id="main" role="main" class="clearfix">
 
-    <%= yield %>
+    <section id="site-body" class="clearfix">
+
+      <%= render 'sidebar' if current_user %>
+
+      <%= yield %>
+
+    </section>
 
   </div>
 

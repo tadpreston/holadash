@@ -1,0 +1,18 @@
+<section id="sidebar-menu">
+
+  <nav>
+
+    <ul>
+
+      <li><%= link_to "Home", root_url %></li>
+
+      <% if permitted_to?(:index, :users) %>
+        <li><%= link_to "Employee Maintenance", users_path %>
+      <% end %>
+
+    </ul>
+
+  </nav>
+
+</section>
+
