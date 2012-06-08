@@ -40,4 +40,9 @@ class User < ActiveRecord::Base
     str = roles_array.collect {|r| r}.join('|')
     write_attribute :roles, str
   end
+
+  def role_symbols
+    roles.split('|').collect {|r| r.to_sym}
+  end
+
 end

@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  skip_before_filter :authorize
+  skip_before_filter :authenticate
+  before_filter :load_authenticated_user, except: [:new]
 
   def new
   end
@@ -18,5 +19,9 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     redirect_to login_path, notice: "You have been logged out"
+  end
+
+  def access_denied
+    session[:user_id] = nil
   end
 end

@@ -1,10 +1,11 @@
 Portal::Application.routes.draw do
 
+  resources :users
+
+  resources :sessions
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
-
-  resources :users
-  resources :sessions
+  get 'access_denied', to: 'sessions#access_denied', as: 'access_denied'
 
   root :to => 'welcome#index'
 

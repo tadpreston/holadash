@@ -39,4 +39,14 @@ class UserTest < ActiveSupport::TestCase
       assert_equal "role1|role2|role3", user.roles
     end
   end
+
+  context "role_symbols method" do
+    setup do
+      @user = FactoryGirl.create(:user, roles: ["role1","role2"])
+    end
+
+    should "return roles as an array of symbols" do
+      assert_equal [:role1, :role2], @user.role_symbols
+    end
+  end
 end
