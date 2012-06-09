@@ -9,6 +9,6 @@ authorization do
   end
 
   role :root do
-    includes :site_admin
+    includes :system_admin
   end
 end
