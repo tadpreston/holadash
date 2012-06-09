@@ -3,7 +3,7 @@ authorization do
     has_permission_on :welcome, to: :index
   end
 
-  role :site_admin do
+  role :system_admin do
     includes :guest
     has_permission_on :users, to: [:index,:show,:new,:create,:edit,:update]
   end
