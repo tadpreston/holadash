@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120607015043) do
+ActiveRecord::Schema.define(:version => 20120608172711) do
 
   create_table "clubs", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(:version => 20120607015043) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "sys_logs", :force => true do |t|
+    t.text     "message"
+    t.string   "message_type"
+    t.string   "actioned_by"
+    t.integer  "loggable_id"
+    t.string   "loggable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "sys_logs", ["loggable_id", "loggable_type"], :name => "index_sys_logs_on_loggable_id_and_loggable_type"
+
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email"
@@ -40,5 +52,8 @@ ActiveRecord::Schema.define(:version => 20120607015043) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
   end
+
+  add_index "users", ["employee_id"], :name => "index_users_on_employee_id"
+  add_index "users", ["username"], :name => "index_users_on_username"
 
 end
