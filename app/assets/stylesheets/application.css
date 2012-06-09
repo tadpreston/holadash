@@ -14,9 +14,10 @@
 
 body { margin: 0; font-size: 1em; line-height: 1.4; }
 
-#page_header { background-color: #ccc;  }
-
 nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+
+#page_header { background-color: #ccc;  }
+#page_header h1 { float: left; padding-left: 12px; }
 
 .clearfix:before, .clearfix:after { content: ""; display: table; }
 .clearfix:after { clear: both; }
