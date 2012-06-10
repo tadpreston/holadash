@@ -45,6 +45,7 @@ module Administration
 
       respond_to do |format|
         if @region.save
+          @region.log_create(current_user.full_name)
           format.html { redirect_to [:administration,@region], notice: 'Region was successfully created.' }
           format.json { render json: [:administration,@region], status: :created, location: @region }
         else
@@ -61,6 +62,7 @@ module Administration
 
       respond_to do |format|
         if @region.update_attributes(params[:region])
+          @region.log_update(current_user.full_name)
           format.html { redirect_to [:administration,@region], notice: 'Region was successfully updated.' }
           format.json { head :no_content }
         else
