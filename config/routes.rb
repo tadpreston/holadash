@@ -1,13 +1,16 @@
 Portal::Application.routes.draw do
 
   resources :users
-  resources :regions
   resources :clubs
 
   resources :sessions
   get 'login', to: 'sessions#new', as: 'login'
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'access_denied', to: 'sessions#access_denied', as: 'access_denied'
+
+  namespace :administration do
+    resources :regions
+  end
 
   root :to => 'welcome#index'
 
