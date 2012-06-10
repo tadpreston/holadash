@@ -6,6 +6,14 @@
 
       <li><%= link_to "Home", root_url %></li>
 
+      <% if permitted_to?(:index, :regions) %>
+        <li><%= link_to "Region Maintenance", regions_path %>
+      <% end %>
+
+      <% if permitted_to?(:index, :clubs) %>
+        <li><%= link_to "Club Maintenance", clubs_path %>
+      <% end %>
+
       <% if permitted_to?(:index, :users) %>
         <li><%= link_to "Employee Maintenance", users_path %>
       <% end %>
