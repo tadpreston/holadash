@@ -1,6 +1,8 @@
 Portal::Application.routes.draw do
 
   resources :users
+  resources :regions
+  resources :clubs
 
   resources :sessions
   get 'login', to: 'sessions#new', as: 'login'
