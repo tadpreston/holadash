@@ -5,6 +5,7 @@ authorization do
 
   role :system_admin do
     includes :guest
+    has_permission_on :administration, to: [:index]
     has_permission_on :users, to: [:index,:show,:new,:create,:edit,:update]
     has_permission_on :regions, to: [:index, :show, :new, :create, :edit, :update]
     has_permission_on :clubs, to: [:index, :show, :new, :create, :edit, :update]
