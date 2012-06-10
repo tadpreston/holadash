@@ -7,7 +7,7 @@
       <li><%= link_to "Home", root_url %></li>
 
       <% if permitted_to?(:index, :regions) %>
-        <li><%= link_to "Region Maintenance", regions_path %>
+        <li><%= link_to "Region Maintenance", administration_regions_path %>
       <% end %>
 
       <% if permitted_to?(:index, :clubs) %>

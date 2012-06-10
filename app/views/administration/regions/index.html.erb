@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Region Name</th>
     <th></th>
     <th></th>
     <th></th>
@@ -9,13 +10,14 @@
 
 <% @regions.each do |region| %>
   <tr>
-    <td><%= link_to 'Show', region %></td>
-    <td><%= link_to 'Edit', edit_region_path(region) %></td>
-    <td><%= link_to 'Destroy', region, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= region.name %></td>
+    <td><%= link_to 'Show', [:administration, region] %></td>
+    <td><%= link_to 'Edit', edit_administration_region_path(region) %></td>
+    <td><%= link_to 'Destroy', [:administration,region], confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Region', new_region_path %>
+<%= link_to 'New Region', new_administration_region_path %>

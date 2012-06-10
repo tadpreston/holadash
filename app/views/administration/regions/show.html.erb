@@ -1,5 +1,11 @@
+<h1>Region</h1>
+
 <p id="notice"><%= notice %></p>
 
+<p>
+  <b>Region Name:</b>
+  <%= @region.name %>
+</p>
 
-<%= link_to 'Edit', edit_region_path(@region) %> |
-<%= link_to 'Back', regions_path %>
+<%= link_to 'Edit', edit_administration_region_path(@region) %> |
+<%= link_to 'Back', administration_regions_path %>

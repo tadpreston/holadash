@@ -1,4 +1,4 @@
-<%= form_for(@region) do |f| %>
+<%= form_for([:administration,@region]) do |f| %>
   <% if @region.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@region.errors.count, "error") %> prohibited this region from being saved:</h2>
@@ -10,6 +10,11 @@
       </ul>
     </div>
   <% end %>
+
+  <div class="field">
+    <%= f.label :name, "Region Name" %><br />
+    <%= f.text_field :name %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>
