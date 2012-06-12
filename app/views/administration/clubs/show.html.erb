@@ -1,0 +1,12 @@
+<h1><%= @club.name %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Address:</b>
+  <%= @club.address %>
+</p>
+
+<%= link_to 'Edit', edit_administration_region_club_path(@region, @club) %> |
+<%= link_to 'Back', [:administration, @region] %>
+

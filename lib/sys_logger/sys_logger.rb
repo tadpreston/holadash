@@ -2,7 +2,7 @@ module SysLogger
 
   ActiveRecord::Base.has_many :sys_logs, as: :loggable, dependent: :destroy
 
-  def log_create(actioner)
+  def log_create(actioner, message)
     sys_logs.new.info(actioner, message)
   end
 
