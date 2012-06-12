@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
   validates :username, presence: true, uniqueness: true
 
-  has_many :sys_logs, as: :loggable, dependent: :destroy
+  include SysLogger
 
   ROLE_ROOT = "root"
   ROLE_SYSTEM_ADMIN = "system_admin"
@@ -49,19 +49,11 @@ class User < ActiveRecord::Base
     roles.split('|').collect {|r| r.to_sym}
   end
 
-  def log_create(actioner)
-    sys_logs.new.info(actioner, "#{self.full_name} was added to the user list.")
+  def log_login
+    sys_logs.new.info(full_name, "#{self.full_name} logged in successfully.")
   end
 
-  def log_update(actioner)
-    sys_logs.new.info(actioner, "#{self.full_name} was modified.")
-  end
-
-  def log_login(actioner)
-    sys_logs.new.info(actioner, "#{self.full_name} logged in successfully.")
-  end
-
-  def log_logout(actioner)
-    sys_logs.new.info(actioner, "#{self.full_name} logged out.")
+  def log_logout
+    sys_logs.new.info(full_name, "#{self.full_name} logged out.")
   end
 end

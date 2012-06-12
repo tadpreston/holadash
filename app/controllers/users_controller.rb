@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        @user.log_create(current_user.full_name)
+        @user.log_create(current_user.full_name,"#{@user.full_name} was created")
         format.html { redirect_to @user, notice: 'Employee was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update_attributes(params[:user])
-        @user.log_update(current_user.full_name)
+        @user.log_update(current_user.full_name, "#{@user.full_name} was updated")
         format.html { redirect_to @user, notice: 'Employee was successfully updated.' }
         format.json { head :no_content }
       else

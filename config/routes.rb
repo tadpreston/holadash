@@ -9,7 +9,9 @@ Portal::Application.routes.draw do
   get 'access_denied', to: 'sessions#access_denied', as: 'access_denied'
 
   namespace :administration do
-    resources :regions
+    resources :regions do
+      resources :clubs
+    end
 
     root to: 'home#index'
   end

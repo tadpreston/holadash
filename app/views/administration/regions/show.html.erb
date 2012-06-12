@@ -9,3 +9,29 @@
 
 <%= link_to 'Edit', edit_administration_region_path(@region) %> |
 <%= link_to 'Back', administration_regions_path %>
+
+<hr>
+
+<h2>Clubs</h2>
+
+<p>
+  <%= link_to "Add a club", new_administration_region_club_path(@region) %>
+</p>
+
+<table>
+  <tr>
+    <th>Club Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @region.clubs.each do |club| %>
+  <tr>
+    <td><%= club.name %></td>
+    <td><%= link_to 'Show', [:administration, @region, club] %></td>
+    <td><%= link_to 'Edit', edit_administration_region_club_path(@region, club) %></td>
+    <td><%= link_to 'Destroy', [:administration, @region, club], confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
