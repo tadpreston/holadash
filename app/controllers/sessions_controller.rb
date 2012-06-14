@@ -2,6 +2,8 @@ class SessionsController < ApplicationController
   skip_before_filter :authenticate
   before_filter :load_authenticated_user, except: [:new]
 
+  layout "session"
+
   def new
   end
 
