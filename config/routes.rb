@@ -1,6 +1,5 @@
 Portal::Application.routes.draw do
 
-  resources :users
   resources :clubs
 
   resources :sessions
@@ -12,6 +11,7 @@ Portal::Application.routes.draw do
     resources :regions do
       resources :clubs
     end
+    resources :users
 
     root to: 'home#index'
   end

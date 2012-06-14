@@ -1,5 +1,7 @@
 module Administration
   class RegionsController < Administration::ContentManagementController
+    filter_resource_access
+
     # GET /regions
     # GET /regions.json
     def index

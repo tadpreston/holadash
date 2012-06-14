@@ -1,5 +1,7 @@
 module Administration
   class ClubsController < Administration::ContentManagementController
+    filter_resource_access
+
     before_filter :get_region
 
     def show
