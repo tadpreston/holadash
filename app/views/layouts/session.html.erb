@@ -83,41 +83,7 @@
 			<h5>&copy; Hola Friend</h5>
 		</hgroup>
 
-		<div id="form-wrapper">
-
-			<div id="form-block" class="scratch-metal">
-				<div id="form-viewport">
-
-					<form method="post" action="" id="form-login" class="input-wrapper blue-gradient glossy" title="Login">
-						<ul class="inputs black-input large">
-							<!-- The autocomplete="off" attributes is the only way to prevent webkit browsers from filling the inputs with yellow -->
-							<li><span class="icon-user mid-margin-right"></span><input type="text" name="login" id="login" value="" class="input-unstyled" placeholder="Login" autocomplete="off"></li>
-							<li><span class="icon-lock mid-margin-right"></span><input type="password" name="pass" id="pass" value="" class="input-unstyled" placeholder="Password" autocomplete="off"></li>
-						</ul>
-
-						<p class="button-height">
-                                                        <button type="submit" class="button glossy full-width huge">Login</button>
-						</p>
-					</form>
-
-					<form method="post" action="" id="form-password" class="input-wrapper orange-gradient glossy" title="Lost password?">
-
-						<p class="message">
-							If you can’t remember your password, fill the input below with your e-mail and we’ll send you a new one:
-							<span class="block-arrow"><span></span></span>
-						</p>
-
-						<ul class="inputs black-input large">
-							<li><span class="icon-mail mid-margin-right"></span><input type="email" name="mail" id="mail" value="" class="input-unstyled" placeholder="Your e-mail" autocomplete="off"></li>
-						</ul>
-
-						<button type="submit" class="button glossy full-width" id="send-password">Send new password</button>
-
-					</form>
-				</div>
-			</div>
-
-		</div>
+                <%= yield %>
 
 	</div>
 
@@ -196,14 +162,14 @@
 			$('#form-login').submit(function(event)
 			{
 				// Values
-				var login = $.trim($('#login').val()),
+				var login = $.trim($('#username').val()),
 					pass = $.trim($('#pass').val());
 
 				// Check inputs
 				if (login.length === 0)
 				{
 					// Display message
-					displayError('Please fill in your login');
+					displayError('Please fill in your Username');
 					return false;
 				}
 				else if (pass.length === 0)
@@ -226,37 +192,32 @@
 					// Stop normal behavior
 					event.preventDefault();
 
-					/*
-					 * This is where you may do your AJAX call, for instance:
-					 * $.ajax(url, {
-					 * 		data: {
-					 * 			login:	login,
-					 * 			pass:	pass
-					 * 		},
-					 * 		success: function(data)
-					 * 		{
-					 * 			if (data.logged)
-					 * 			{
-					 * 				document.location.href = 'index.html';
-					 * 			}
-					 * 			else
-					 * 			{
-					 * 				formWrapper.clearMessages();
-					 * 				displayError('Invalid user/password, please try again');
-					 * 			}
-					 * 		},
-					 * 		error: function()
-					 * 		{
-					 * 			formWrapper.clearMessages();
-					 * 			displayError('Error while contacting server, please try again');
-					 * 		}
-					 * });
-					 */
-
-					// Simulate server-side check
-					setTimeout(function() {
-						document.location.href = './'
-					}, 2000);
+					
+					// This is where you may do your AJAX call, for instance:
+                                        $.ajax('<%= login_path %>', {
+							data: {
+				 			username: login,
+				 			password: pass
+				 		},
+				 		success: function(data)
+				 		{
+				 			if (data.logged)
+				 			{
+                                                                document.location.href = '<%= root_url %>';
+				 			}
+				 			else
+				 			{
+				 				formWrapper.clearMessages();
+				 				displayError('Invalid user/password, please try again');
+				 			}
+				 		},
+				 		error: function()
+				 		{
+				 			formWrapper.clearMessages();
+				 			displayError('Error while contacting server, please try again');
+				 		}
+			    	        });
+				
 				}
 			});
 

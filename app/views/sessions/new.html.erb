@@ -1,23 +1,35 @@
-<div id="login-form">
+		<div id="form-wrapper">
 
-  <h1>Login</h1>
+			<div id="form-block" class="scratch-metal">
+				<div id="form-viewport">
 
-  <%= form_tag sessions_path do %>
+					<form method="post" action="" id="form-login" class="input-wrapper blue-gradient glossy" title="Login">
+						<ul class="inputs black-input large">
+							<!-- The autocomplete="off" attributes is the only way to prevent webkit browsers from filling the inputs with yellow -->
+							<li><span class="icon-user mid-margin-right"></span><input type="text" name="username" id="username" value="" class="input-unstyled" placeholder="Username" autocomplete="off"></li>
+							<li><span class="icon-lock mid-margin-right"></span><input type="password" name="pass" id="pass" value="" class="input-unstyled" placeholder="Password" autocomplete="off"></li>
+						</ul>
 
-    <p>
-      <%= label_tag :username, "Username:" %>
-      <%= text_field_tag :username %>
-    </p>
+						<p class="button-height">
+                                                        <button type="submit" class="button glossy full-width huge">Login</button>
+						</p>
+					</form>
 
-    <p>
-      <%= label_tag :password, "Password:" %>
-      <%= password_field_tag :password %>
-    </p>
+					<form method="post" action="" id="form-password" class="input-wrapper orange-gradient glossy" title="Lost password?">
 
-    <p>
-      <%= submit_tag "Login" %>
-    </p>
+						<p class="message">
+							If you can’t remember your password, fill the input below with your e-mail and we’ll send you a new one:
+							<span class="block-arrow"><span></span></span>
+						</p>
 
-  <% end %>
+						<ul class="inputs black-input large">
+							<li><span class="icon-mail mid-margin-right"></span><input type="email" name="mail" id="mail" value="" class="input-unstyled" placeholder="Your e-mail" autocomplete="off"></li>
+						</ul>
 
-</div>
+						<button type="submit" class="button glossy full-width" id="send-password">Send new password</button>
+
+					</form>
+				</div>
+			</div>
+
+		</div>

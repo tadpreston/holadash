@@ -12,10 +12,12 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       user.log_login
       session[:username] = user.username
-      redirect_to root_url, notice: "You have successfully logged in!"
+      format.json { '{ data : true }' }
+#     redirect_to root_url, notice: "You have successfully logged in!"
     else
-      flash.now.alert = "E-mail and/or password is invalid"
-      render 'new'
+#     flash.now.alert = "E-mail and/or password is invalid"
+#     render 'new'
+      format.json { '{ data : false }' }
     end
   end
 
