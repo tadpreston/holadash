@@ -96,7 +96,9 @@
 						</ul>
 
 						<p class="button-height">
-                                                        <button type="submit" class="button glossy full-width huge">Login</button>
+							<button type="submit" class="button glossy float-right" id="login">Login</button>
+							<input type="checkbox" name="remind" id="remind" value="1" checked="checked" class="switch tiny mid-margin-right with-tooltip" title="Enable auto-login">
+							<label for="remind">Remind Me</label>
 						</p>
 					</form>
 
@@ -306,6 +308,68 @@
 			});
 
 			/*
+			 * Register
+			 */
+			$('#form-register').submit(function(event)
+			{
+				// Values
+				var name = $.trim($('#name-register').val()),
+					mail = $.trim($('#mail-register').val()),
+					login = $.trim($('#login-register').val()),
+					pass = $.trim($('#pass-register').val());
+
+				// Remove previous messages
+				formWrapper.clearMessages();
+
+				// Check inputs
+				if (name.length === 0)
+				{
+					// Display message
+					displayError('Please fill in your name');
+					return false;
+				}
+				else if (mail.length === 0)
+				{
+					// Display message
+					displayError('Please fill in your email');
+					return false;
+				}
+				else if (!/^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/.test(mail))
+				{
+					// Display message
+					displayError('Email is not valid');
+					return false;
+				}
+				else if (login.length === 0)
+				{
+					// Display message
+					displayError('Please fill in your login');
+					return false;
+				}
+				else if (pass.length === 0)
+				{
+					// Display message
+					displayError('Please fill in your password');
+					return false;
+				}
+				else
+				{
+					// Show progress
+					displayLoading('Registering...');
+
+					// Stop normal behavior
+					event.preventDefault();
+
+					/*
+					 * This is where you may do your AJAX call
+					 */
+
+					// Simulate server-side check
+					setTimeout(function() {
+						document.location.href = './'
+					}, 2000);
+				}
+			});
 
 			/******* END OF EDIT SECTION *******/
 
