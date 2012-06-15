@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
   skip_before_filter :authenticate
   before_filter :load_authenticated_user, except: [:new]
+  protect_from_forgery :except => [:create]
 
-  layout "session"
+  layout false
 
   def new
   end
@@ -12,12 +13,9 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       user.log_login
       session[:username] = user.username
-      format.json { '{ data : true }' }
-#     redirect_to root_url, notice: "You have successfully logged in!"
+      @logged_in = 'true'
     else
-#     flash.now.alert = "E-mail and/or password is invalid"
-#     render 'new'
-      format.json { '{ data : false }' }
+      @logged_in = 'false'
     end
   end
 
