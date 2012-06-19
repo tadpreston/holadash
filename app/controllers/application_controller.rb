@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    @current_user ||= User.find_by_username(session[:username]) unless session[:username].blank?
+    @current_user ||= User.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]
   end
 
   def permission_denied
@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
   end
 
   def load_authenticated_user
-    unless session[:username].blank?
-      if current_user.nil?
+    if cookies[:auth_token]
+      unless current_user
         redirect_to access_denied_path
       else
         Authorization.current_user = current_user

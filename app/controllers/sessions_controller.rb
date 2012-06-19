@@ -12,10 +12,7 @@ class SessionsController < ApplicationController
     user = User.find_by_username(params[:username])
     if user && user.authenticate(params[:password])
       user.log_login(user.full_name, "Logged in successfully.")
-      session[:username] = user.username
-      @logged_in = 'true'
-    else
-      @logged_in = 'false'
+      cookies[:auth_token] = user.auth_token
     end
   end
 
