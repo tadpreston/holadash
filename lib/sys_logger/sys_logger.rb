@@ -5,10 +5,11 @@ module SysLogger
   def method_missing(method, *args)
     if method.to_s =~ /^log_/  # if the method called is a log method
       log_type = method.slice(/[^_]+$/)
-      if %w[info error warning debug].include? log_type
-        sys_logs.new.send "#{log_type}", args[0], args[1]
+      sys_log = sys_logs.new
+      if sys_log.respond_to? log_type
+        sys_log.send "#{log_type}", args[0], args[1]
       else
-        sys_logs.new.info(args[0], args[1])
+        sys_log.info(args[0], args[1])
       end
     else
       super
