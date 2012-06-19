@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  before_create { generate_token(:auth_token) }
+
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
   validates :username, presence: true, uniqueness: true
 
@@ -48,11 +50,10 @@ class User < ActiveRecord::Base
     roles.split('|').collect {|r| r.to_sym}
   end
 
-  def log_login
-    sys_logs.new.info(full_name, "#{self.full_name} logged in successfully.")
-  end
-
-  def log_logout
-    sys_logs.new.info(full_name, "#{self.full_name} logged out.")
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    UserMailer.password_reset(self).deliver
   end
 end

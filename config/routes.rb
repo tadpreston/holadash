@@ -1,5 +1,7 @@
 Portal::Application.routes.draw do
 
+  get "password_resets/new"
+
   resources :clubs
 
   resources :sessions

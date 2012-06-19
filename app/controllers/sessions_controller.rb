@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_username(params[:username])
     if user && user.authenticate(params[:password])
-      user.log_login
+      user.log_login(user.full_name, "Logged in successfully.")
       session[:username] = user.username
       @logged_in = 'true'
     else
@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.log_logout
+    current_user.log_logout(current_user.full_name, "Logged out.")
     session[:username] = nil
     redirect_to login_path, notice: "You have been logged out"
   end
