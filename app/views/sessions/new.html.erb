@@ -292,11 +292,22 @@
 					/*
 					 * This is where you may do your AJAX call
 					 */
-
-					// Simulate server-side check
-					setTimeout(function() {
-						document.location.href = './'
-					}, 2000);
+                                        $.ajax('<%= password_resets_path %>', {
+                                                type: 'POST',
+				 		data: {
+				 			email:	mail,
+				 		},
+				 		success: function(data)
+				 		{
+				 			formWrapper.clearMessages();
+                                                        displayMessage('Email sent with password reset instructions.');
+				 		},
+						error: function()
+				 		{
+				 			formWrapper.clearMessages();
+				 			displayError('Error while contacting server, please try again');
+				 		}
+        				 });
 				}
 			});
 
@@ -558,6 +569,24 @@
 
 				}).hide().slideDown('fast');
 			};
+
+                        function displayMessage(message)
+                        {
+
+                              var message = formWrapper.message(message, {
+                                      append: false,
+                                      arrow: 'bottom',
+                                      classes: ['blue-gradient'],
+                                      animate: false
+                              });
+
+                              centerForm(currentForm, true, 'fast');
+
+                              message.blind('endfade', function(event)
+                              {
+                                    centerForm(currentForm, true, message.get(0));
+                              }).hide().slideDown('fast');
+                        };
 
 			/**
 			 * Function to display loading messages
