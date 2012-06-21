@@ -1,1 +1,13 @@
-<%= current_user ? "true" : "false" %>
+<% if cookies[:auth_token] %>
+  document.location.href = '<%= root_url %>';
+<% else %>
+  $('#form-wrapper').clearMessages();
+  var message = $('#form-wrapper').message('Invalid user/password, please try again', {
+          append: false,
+          arrow: 'bottom',
+          classes: ['red-gradient'],
+          animate: false 
+  });
+  message.bind('endfade').hide().slideDown('fast');
+
+<% end %>
