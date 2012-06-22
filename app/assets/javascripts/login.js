@@ -125,25 +125,6 @@
 					// Stop normal behavior
 					event.preventDefault();
 
-					/*
-					 * This is where you may do your AJAX call
-					 */
-                                        $.ajax('<%= password_resets_path %>', {
-                                                type: 'POST',
-				 		data: {
-				 			email:	mail,
-				 		},
-				 		success: function(data)
-				 		{
-				 			formWrapper.clearMessages();
-                                                        displayMessage('Email sent with password reset instructions.');
-				 		},
-						error: function()
-				 		{
-				 			formWrapper.clearMessages();
-				 			displayError('Error while contacting server, please try again');
-				 		}
-        				 });
 				}
 			});
 

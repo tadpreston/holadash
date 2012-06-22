@@ -1,1 +1,8 @@
-<%= true %>
+$('#form-wrapper').clearMessages();
+var message = $('#form-wrapper').message('Email sent with password reset instructions.', {
+        append: false,
+        arrow: 'bottom',
+        classes: ['blue-gradient', 'align-center'],
+        animate: false 
+});
+message.bind('endfade').hide().slideDown('fast');

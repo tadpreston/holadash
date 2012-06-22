@@ -1,9 +1,8 @@
 class SessionsController < ApplicationController
   skip_before_filter :authenticate
   before_filter :load_authenticated_user, except: [:new]
-  protect_from_forgery :except => [:create]
 
-  layout false
+  layout 'sessions'
 
   def new
   end

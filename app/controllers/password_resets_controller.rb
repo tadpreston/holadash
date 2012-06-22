@@ -1,9 +1,14 @@
 class PasswordResetsController < ApplicationController
+  skip_before_filter :authenticate
+  before_filter :load_authenticated_user, except: [:new]
+
+  layout 'sessions'
+
   def new
   end
 
   def create
-    user = User.find_by_email(params[:email])
+    user = User.find_by_email(params[:mail])
     user.send_password_reset if user
   end
 
