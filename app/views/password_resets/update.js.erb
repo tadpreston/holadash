@@ -1,0 +1,19 @@
+<% if @reset_status == 'success'
+     msg = 'Your password had been reset...'
+     classes = "['blue-gradient','align-center']"
+   else
+     msg = @reset_status == 'expired' ? 'Password reset has expired...' : 'An error occurred when changing your password'
+     classes = "['red-gradient']"
+   end %>
+
+$('#form-reset').clearMessages();
+var message = $('#form-reset').message('<%= msg %>', {
+        append: false,
+        arrow: 'bottom',
+        classes: <%= classes %>,
+        animate: false 
+});
+message.bind('endfade').hide().slideDown('fast');
+setTimeout(function() {
+    document.location.href = '/';
+}, 2300);

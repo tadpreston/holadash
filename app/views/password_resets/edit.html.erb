@@ -1,21 +1,14 @@
-<%= form_for @user, url: password_reset_path(params[:id]) do |f| %>
-  <% if @user.errors.any? %>
-    <div class="error_messages">
-      <h2>Form is invalid</h2>
-      <ul>
-        <% for message in @user.errors.full_messages %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="actions"><%= f.submit "Update Password" %></div>
+<% content_for :js_specific do %>
+    <%= javascript_include_tag 'password_reset' %>
 <% end %>
+
+<%= form_for @user, url: password_reset_path(params[:id]), html: { id: 'form-reset' }, remote: true do |f| %>
+			<ul class="inputs black-input large">
+				<!-- The autocomplete="off" attributes is the only way to prevent webkit browsers from filling the inputs with yellow -->
+                                <li><span class="icon-user mid-margin-right"></span><%= f.password_field :password, class: 'input-unstyled', placeholder: 'New Password', autocomplete: 'off' %></li>
+				<li><span class="icon-lock mid-margin-right"></span><%= f.password_field :password_confirmation, class: 'input-unstyled', placeholder: 'Password Confirmation', autocomplete: 'off' %></li>
+			</ul>
+
+                        <%= f.button 'Reset Password', { class: 'button glossy full-width huge' } %>
+                <% end %>
+
