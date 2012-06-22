@@ -100,8 +100,7 @@
 		<noscript class="message black-gradient simpler">Your browser does not support JavaScript! Some features won't work as expected...</noscript>
 
 		<hgroup id="main-title" class="thin">
-			<h1>Hola Dashboard</h1>
-                        <h2><%= dashboard_date.html_safe %></h2>
+                        <%= yield :main_title %>
 		</hgroup>
 
                 <%= yield %>
@@ -134,7 +133,7 @@
 			<div id="profile">
 				<img src="img/user.png" width="64" height="64" alt="User name" class="user-icon">
 				Hello
-				<span class="name">John <b>Doe</b></span>
+                                <span class="name"><%= current_user.first_name %> <b><%= current_user.last_name %></b></span>
 			</div>
 
 			<!-- By default, this section is made for 4 icons, see the doc to learn how to change this, in "basic markup explained" -->
@@ -142,7 +141,10 @@
 				<li><a href="inbox.html" title="Messages"><span class="icon-inbox"></span><span class="count">2</span></a></li>
 				<li><a href="calendars.html" title="Calendar"><span class="icon-calendar"></span></a></li>
 				<li><a href="login.html" title="Profile"><span class="icon-user"></span></a></li>
-				<li class="disabled"><span class="icon-gear"></span></li>
+                                <li><%= link_to logout_path, title: 'Logout' do %>
+                                    <span class="icon-gear"></span>
+                                    <% end %>
+                                  </li>
 			</ul>
 
 			<section class="navigable">
