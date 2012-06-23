@@ -149,6 +149,15 @@
 
 			<section class="navigable">
 				<ul class="big-menu">
+                                  <% if permitted_to?(:index, :administration) %>
+					<li class="with-right-arrow">
+						<span>Administration</span>
+						<ul class="big-menu">
+                                                        <li><%= link_to "Region Maintenance", administration_regions_path %></li>
+                                                        <li><%= link_to "Employee Maintenance", administration_users_path %></li>
+                                                </ul>
+                                        </li>
+                                  <% end %>
 					<li class="with-right-arrow">
 						<span><span class="list-count">11</span>Main styles</span>
 						<ul class="big-menu">
