@@ -1,22 +1,52 @@
-<h1>Listing regions</h1>
-
-<table>
-  <tr>
-    <th>Region Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @regions.each do |region| %>
-  <tr>
-    <td><%= region.name %></td>
-    <td><%= link_to 'Show', [:administration, region] %></td>
-    <td><%= link_to 'Edit', edit_administration_region_path(region) %></td>
-    <td><%= link_to 'Destroy', [:administration,region], confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<% content_for :main_title do %>
+  <h1>Region Maintenance</h1>
 <% end %>
-</table>
+
+<% content_for :js_specific do %>
+  <script src="js/libs/DataTables/jquery.dataTables.min.js"></script>
+<% end %>
+
+<div class="with-padding">
+
+  <table  class="simple-table responsive-table" id="sorting-example2">
+
+    <thead>
+      <tr>
+        <th scope="col">Region Name</th>
+        <th scope="col" width="120" class="align-right">Actions</th>
+      </tr>
+    </thead>
+
+    <tfoot>
+      <tr>
+        <td colspan="2">
+          <%= "#{@regions.size} regions found" %>
+        </td>
+      </tr>
+    </tfoot>
+
+    <tbody>
+
+    <% @regions.each do |region| %>
+      <tr>
+        <th scope="row">
+           <%= region.name %> 
+        </th>
+        <td class="align-right vertical-center">
+          <span class="button-group compact">
+            <%= link_to 'Edit', edit_administration_region_path(region), class: "button icon-pencil" %>
+            <%= link_to '', [:administration, region], class: "button icon-read with-tooltip", title: "Show" %>
+            <%= link_to '', [:administration,region], confirm: 'Are you sure?', method: :delete, class: "button icon-trash with-tooltip confirm", title: "Delete" %>
+          </span>
+        </td>
+      </tr>
+    <% end %>
+
+    </tbody>
+
+  </table>
+
+</div>
 
 <br />
 

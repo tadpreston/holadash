@@ -12,6 +12,6 @@ authorization do
   end
 
   role :root do
-    includes :system_admin
+    has_omnipotence
   end
 end
