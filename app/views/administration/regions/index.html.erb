@@ -2,17 +2,15 @@
   <h1>Region Maintenance</h1>
 <% end %>
 
-<% content_for :js_specific do %>
-  <script src="js/libs/DataTables/jquery.dataTables.min.js"></script>
-<% end %>
-
 <div class="with-padding">
 
-  <table  class="simple-table responsive-table" id="sorting-example2">
+  <table  class="simple-table responsive-table" id="region-list">
 
     <thead>
       <tr>
         <th scope="col">Region Name</th>
+        <th scope="col" width="15%">Date Created</th>
+        <th scope="col" width="15%">Date Modified</th>
         <th scope="col" width="120" class="align-right">Actions</th>
       </tr>
     </thead>
@@ -32,6 +30,8 @@
         <th scope="row">
            <%= region.name %> 
         </th>
+        <td><%= region.created_at %></td>
+        <td><%= region.modified_at %></td>
         <td class="align-right vertical-center">
           <span class="button-group compact">
             <%= link_to 'Edit', edit_administration_region_path(region), class: "button icon-pencil" %>
@@ -52,3 +52,22 @@
 
 <%= link_to 'Administration Home', administration_root_url %> |
 <%= link_to 'New Region', new_administration_region_path %>
+
+<% content_for :js_specific do %>
+  <script src="/js/libs/DataTables/jquery.dataTables.min.js"></script>
+<% end %>
+
+<% content_for :js_specific do %>
+    <!-- Template functions -->
+    <script src="js/developr.input.js"></script>
+    <script src="js/developr.navigable.js"></script>
+    <script src="js/developr.notify.js"></script>
+    <script src="js/developr.scroll.js"></script>
+    <script src="js/developr.tooltip.js"></script>
+
+    <script src="js/developr.table.js"></script>
+
+    <!-- Plugins -->
+    <script src="js/libs/jquery.tablesorter.min.js"></script>
+    <script src="js/libs/DataTables/jquery.dataTables.min.js"></script>
+  <% end %>
