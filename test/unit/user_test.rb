@@ -26,6 +26,10 @@ class UserTest < ActiveSupport::TestCase
       @user.generate_token(:password_reset_token)
       assert ! @user.password_reset_token.blank?
     end
+
+    should "generate the auth_token when created" do
+      assert ! @user.auth_token.blank?
+    end
   end
 
   context "roles= method" do
@@ -49,4 +53,30 @@ class UserTest < ActiveSupport::TestCase
       assert_equal [:role1, :role2], @user.role_symbols
     end
   end
+
+  context "send_password_reset method" do
+    setup do
+      @user = FactoryGirl.create(:user)
+    end
+
+    should "send a reset email" do
+      UserMailer.stubs(:deliver)
+      @user.send_password_reset
+      assert ! @user.password_reset_token.blank?
+      assert ! @user.password_reset_sent_at.blank?
+    end
+  end
+
+  context "normal scope" do
+    setup do
+      @root_user = FactoryGirl.create(:user, roles: [User::ROLE_ROOT])
+      @user = FactoryGirl.create(:user, roles: [User::ROLE_SYSTEM_ADMIN, User::ROLE_REGIONAL_MANAGER])
+    end
+
+    should "not return root user" do
+      users = User.normal
+      assert ! users.include?(@root_user)
+    end
+  end
+
 end

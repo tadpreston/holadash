@@ -22,4 +22,5 @@ group :test do
   gem "factory_girl_rails", "~> 3.3.0"
   gem "shoulda", "~> 3.0.1"
   gem 'shoulda-context'
+  gem 'mocha', '~> 0.11.4', :require => false
 end
