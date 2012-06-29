@@ -17,7 +17,7 @@
 
     <tfoot>
       <tr>
-        <td colspan="2">
+        <td colspan="4">
           <%= "#{@regions.size} regions found" %>
         </td>
       </tr>
@@ -30,8 +30,8 @@
         <th scope="row">
            <%= region.name %> 
         </th>
-        <td><%= region.created_at %></td>
-        <td><%= region.modified_at %></td>
+        <td><%= region.created_at.strftime('%B %-d, %Y %H:%M:%S') %></td>
+        <td><%= region.updated_at.strftime('%B %-d, %Y %H:%M:%S') %></td>
         <td class="align-right vertical-center">
           <span class="button-group compact">
             <%= link_to 'Edit', edit_administration_region_path(region), class: "button icon-pencil" %>
@@ -46,12 +46,9 @@
 
   </table>
 
+  <div><%= link_to 'New Region', new_administration_region_path, class: 'button icon-star' %></div>
+
 </div>
-
-<br />
-
-<%= link_to 'Administration Home', administration_root_url %> |
-<%= link_to 'New Region', new_administration_region_path %>
 
 <% content_for :js_specific do %>
   <script src="/js/libs/DataTables/jquery.dataTables.min.js"></script>
@@ -59,15 +56,15 @@
 
 <% content_for :js_specific do %>
     <!-- Template functions -->
-    <script src="js/developr.input.js"></script>
-    <script src="js/developr.navigable.js"></script>
-    <script src="js/developr.notify.js"></script>
-    <script src="js/developr.scroll.js"></script>
-    <script src="js/developr.tooltip.js"></script>
+    <script src="/js/developr.input.js"></script>
+    <script src="/js/developr.navigable.js"></script>
+    <script src="/js/developr.notify.js"></script>
+    <script src="/js/developr.scroll.js"></script>
+    <script src="/js/developr.tooltip.js"></script>
 
-    <script src="js/developr.table.js"></script>
+    <script src="/js/developr.table.js"></script>
 
     <!-- Plugins -->
-    <script src="js/libs/jquery.tablesorter.min.js"></script>
-    <script src="js/libs/DataTables/jquery.dataTables.min.js"></script>
+    <script src="/js/libs/jquery.tablesorter.min.js"></script>
+    <script src="/js/libs/DataTables/jquery.dataTables.min.js"></script>
   <% end %>
