@@ -36,13 +36,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
 
 	<!-- Additional styles -->
-	<link rel="stylesheet" href="/css/styles/agenda.css?v=1">
-	<link rel="stylesheet" href="/css/styles/dashboard.css?v=1">
-	<link rel="stylesheet" href="/css/styles/form.css?v=1">
-	<link rel="stylesheet" href="/css/styles/modal.css?v=1">
-	<link rel="stylesheet" href="/css/styles/progress-slider.css?v=1">
-	<link rel="stylesheet" href="/css/styles/switches.css?v=1">
-        <link rel="stylesheet" href="/css/styles/table.css?v=1">
+        <%= yield :additional_styles %>
 
 	<!-- JavaScript at bottom except for Modernizr -->
 	<script src="/js/libs/modernizr.custom.js"></script>
@@ -132,7 +126,7 @@
 			</header>
 
 			<div id="profile">
-				<img src="img/user.png" width="64" height="64" alt="User name" class="user-icon">
+				<img src="/img/user.png" width="64" height="64" alt="User name" class="user-icon">
 				Hello
                                 <span class="name"><%= current_user.first_name %> <b><%= current_user.last_name %></b></span>
 			</div>
@@ -289,6 +283,8 @@
         <%= javascript_include_tag 'application' %>
 	<script src="/js/setup.js"></script>
 
+        <!-- Template functions -->
+        <script src="/js/developr.navigable.js"></script>
         <%= yield :js_specific %>
 
 </body>

@@ -1,37 +1,66 @@
-<h1>Region</h1>
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Region Name:</b>
-  <%= @region.name %>
-</p>
-
-<%= link_to 'Edit', edit_administration_region_path(@region) %> |
-<%= link_to 'Back', administration_regions_path %>
-
-<hr>
-
-<h2>Clubs</h2>
-
-<p>
-  <%= link_to "Add a club", new_administration_region_club_path(@region) %>
-</p>
-
-<table>
-  <tr>
-    <th>Club Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @region.clubs.each do |club| %>
-  <tr>
-    <td><%= club.name %></td>
-    <td><%= link_to 'Show', [:administration, @region, club] %></td>
-    <td><%= link_to 'Edit', edit_administration_region_club_path(@region, club) %></td>
-    <td><%= link_to 'Destroy', [:administration, @region, club], confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<% content_for :main_title do %>
+  <h1><%= @region.name %></h1>
 <% end %>
-</table>
+
+<% content_for :additional_styles do %>
+<link rel="stylesheet" href="/css/styles/form.css?v=1">
+<link rel="stylesheet" href="/css/styles/table.css?v=1">
+<% end %>
+
+<div class="with-padding">
+  <p id="notice"><%= notice %></p>
+
+
+  <p class="button-height">
+    <span class="button-group">
+      <%= link_to 'Edit Region', edit_administration_region_path(@region), class: 'button' %> 
+      <%= link_to 'Back to region list', administration_regions_path, class: 'button' %>
+    </span>
+  </p>
+  <hr>
+
+  <h2 class="thin">Clubs</h2>
+
+  <div class="table-header blue-gradient">
+    <%= link_to "Add a club", new_administration_region_club_path(@region), class: 'button compact blue-gradient glossy' %>
+  </div>
+
+  <table class="table responsive-table" id="region-list">
+
+    <thead>
+      <tr>
+        <th scope="col">Club Name</th>
+        <th scope="col" width="15%">Date Created</th>
+        <th scope="col" width="15%">Date Modified</th>
+        <th scope="col" width="120" class="align-right">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+  <% @region.clubs.each do |club| %>
+      <tr>
+        <th scope="row">
+           <%= club.name %> 
+        </th>
+        <td><%= club.created_at.strftime('%B %-d, %Y %H:%M:%S') %></td>
+        <td><%= club.updated_at.strftime('%B %-d, %Y %H:%M:%S') %></td>
+        <td class="align-right vertical-center">
+          <span class="button-group compact">
+            <%= link_to 'Edit', edit_administration_region_club_path(@region,club), class: "button icon-pencil" %>
+            <%= link_to '', [:administration, @region, club], class: "button icon-read with-tooltip", title: "Show" %>
+            <%= link_to '', [:administration, @region, club], confirm: 'Are you sure?', method: :delete, class: "button icon-trash with-tooltip confirm", title: "Delete" %>
+          </span>
+        </td>
+      </tr>
+    <% end %>
+
+    </tbody>
+
+  </table>
+
+  <div class="table-footer">
+    <%= "#{@region.clubs.size} clubs found" %>
+  </div>
+
+</div>

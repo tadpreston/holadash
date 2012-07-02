@@ -2,9 +2,16 @@
   <h1>Region Maintenance</h1>
 <% end %>
 
+<% content_for :additional_styles do %>
+<link rel="stylesheet" href="/css/styles/table.css?v=1">
+<% end %>
+
 <div class="with-padding">
 
-  <table  class="simple-table responsive-table" id="region-list">
+  <div class="table-header blue-gradient">
+    <%= link_to 'New Region', new_administration_region_path, class: 'button compact blue-gradient glossy' %>
+  </div>
+  <table class="table responsive-table" id="region-list">
 
     <thead>
       <tr>
@@ -14,14 +21,6 @@
         <th scope="col" width="120" class="align-right">Actions</th>
       </tr>
     </thead>
-
-    <tfoot>
-      <tr>
-        <td colspan="4">
-          <%= "#{@regions.size} regions found" %>
-        </td>
-      </tr>
-    </tfoot>
 
     <tbody>
 
@@ -46,25 +45,11 @@
 
   </table>
 
-  <div><%= link_to 'New Region', new_administration_region_path, class: 'button icon-star' %></div>
+  <div class="table-footer">
+    <%= "#{@regions.size} regions found" %>
+  </div>
 
 </div>
 
 <% content_for :js_specific do %>
-  <script src="/js/libs/DataTables/jquery.dataTables.min.js"></script>
 <% end %>
-
-<% content_for :js_specific do %>
-    <!-- Template functions -->
-    <script src="/js/developr.input.js"></script>
-    <script src="/js/developr.navigable.js"></script>
-    <script src="/js/developr.notify.js"></script>
-    <script src="/js/developr.scroll.js"></script>
-    <script src="/js/developr.tooltip.js"></script>
-
-    <script src="/js/developr.table.js"></script>
-
-    <!-- Plugins -->
-    <script src="/js/libs/jquery.tablesorter.min.js"></script>
-    <script src="/js/libs/DataTables/jquery.dataTables.min.js"></script>
-  <% end %>

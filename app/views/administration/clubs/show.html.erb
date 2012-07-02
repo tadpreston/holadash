@@ -1,12 +1,24 @@
-<h1><%= @club.name %></h1>
+<% content_for :main_title do %>
+  <h1><%= @club.name %></h1>
+<% end %>
 
-<p id="notice"><%= notice %></p>
+<% content_for :additional_styles do %>
+<link rel="stylesheet" href="/css/styles/form.css?v=1">
+<link rel="stylesheet" href="/css/styles/table.css?v=1">
+<% end %>
 
-<p>
-  <b>Address:</b>
-  <%= @club.address %>
-</p>
+<div class="with-padding">
+  <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_administration_region_club_path(@region, @club) %> |
-<%= link_to 'Back', [:administration, @region] %>
+  <p>
+    <b>Address:</b>
+    <%= simple_format @club.address %>
+  </p>
 
+  <p class="button-height">
+    <span class="button-group">
+      <%= link_to 'Edit Club', edit_administration_region_club_path(@region, @club), class: 'button' %> 
+      <%= link_to 'Back to region', [:administration, @region], class: 'button' %>
+    </span>
+  </p>
+</div>

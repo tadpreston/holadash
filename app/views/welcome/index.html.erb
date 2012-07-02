@@ -3,6 +3,17 @@
   <h2><%= dashboard_date %></h2>
 <% end %>
 
+
+<% content_for :additional_styles do %>
+<link rel="stylesheet" href="/css/styles/agenda.css?v=1">
+<link rel="stylesheet" href="/css/styles/dashboard.css?v=1">
+<link rel="stylesheet" href="/css/styles/form.css?v=1">
+<link rel="stylesheet" href="/css/styles/modal.css?v=1">
+<link rel="stylesheet" href="/css/styles/progress-slider.css?v=1">
+<link rel="stylesheet" href="/css/styles/switches.css?v=1">
+<% end %>
+
+
 		<div class="dashboard">
 
 			<div class="columns">
@@ -411,7 +422,6 @@
 	<script src="/js/developr.input.js"></script>
 	<script src="/js/developr.message.js"></script>
 	<script src="/js/developr.modal.js"></script>
-	<script src="/js/developr.navigable.js"></script>
 	<script src="/js/developr.notify.js"></script>
 	<script src="/js/developr.scroll.js"></script>
 	<script src="/js/developr.progress-slider.js"></script>
