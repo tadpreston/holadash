@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120702164046) do
+ActiveRecord::Schema.define(:version => 20120703182902) do
 
   create_table "club_users", :force => true do |t|
     t.integer  "club_id"
@@ -27,6 +27,18 @@ ActiveRecord::Schema.define(:version => 20120702164046) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "from_id"
+    t.string   "subject"
+    t.text     "body"
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "messages", ["from_id"], :name => "index_messages_on_from_id"
+  add_index "messages", ["subject"], :name => "index_messages_on_subject"
 
   create_table "regions", :force => true do |t|
     t.string   "name"
@@ -45,6 +57,14 @@ ActiveRecord::Schema.define(:version => 20120702164046) do
   end
 
   add_index "sys_logs", ["loggable_id", "loggable_type"], :name => "index_sys_logs_on_loggable_id_and_loggable_type"
+
+  create_table "user_messages", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.string   "umtype"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"
