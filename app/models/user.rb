@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :employee_id, :first_name, :last_name, :password, :password_confirmation, :roles, :username
+  attr_accessible :email, :employee_id, :first_name, :last_name, :password, :password_confirmation, :roles, :username, :club_ids
 
   has_secure_password
 
@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
   validates :username, presence: true, uniqueness: true
+
+  has_many :club_users
+  has_many :clubs, through: :club_users
 
   include SysLogger
 
@@ -27,6 +30,7 @@ class User < ActiveRecord::Base
   ROLE_FRONT_DESK_STAFF = "front_desk_staff"
 
   ROLES = [ROLE_SYSTEM_ADMIN, ROLE_CLUB_OWNER, ROLE_REGIONAL_MANAGER, ROLE_CLUB_MANAGER, ROLE_SALES_MANAGER, ROLE_SALES_ASSOCIATE, ROLE_PERSONAL_TRAINING_MANAGER, ROLE_PERSONAL_TRAINER, ROLE_MAINTENANCE_MANAGER, ROLE_MAINTENANCE_STAFF, ROLE_CHILD_CARE_MANAGER, ROLE_CHILD_CARE_STAFF, ROLE_FRONT_DESK_MANAGER, ROLE_FRONT_DESK_STAFF]
+  AdminRoles = [ROLE_ROOT, ROLE_SYSTEM_ADMIN, ROLE_CLUB_OWNER, ROLE_REGIONAL_MANAGER, ROLE_CLUB_MANAGER]
 
   scope :normal, where(["roles not like ?", "%#{ROLE_ROOT}%"])
 
@@ -55,5 +59,13 @@ class User < ActiveRecord::Base
     self.password_reset_sent_at = Time.zone.now
     save!
     UserMailer.password_reset(self).deliver
+  end
+
+  def is_admin?
+    is_admin = false
+    self.roles.split('|').each do |r|
+      is_admin = true if AdminRoles.include?(r)
+    end
+    is_admin
   end
 end

@@ -27,7 +27,9 @@ module Administration
     # GET /users/new
     # GET /users/new.json
     def new
-      @user = User.new
+      @user = User.new(club_ids: params[:club_id])
+      @club = Club.find params[:club_id]
+      session[:referrer] = request.referrer
 
       respond_to do |format|
         format.html # new.html.erb
@@ -38,6 +40,7 @@ module Administration
     # GET /users/1/edit
     def edit
       @user = User.find(params[:id])
+      session[:referrer] = request.referrer
     end
 
     # POST /users
@@ -48,9 +51,9 @@ module Administration
       respond_to do |format|
         if @user.save
           @user.log_create(current_user.full_name,"#{@user.full_name} was created")
-          format.html { redirect_to [:administration,@user], notice: 'Employee was successfully created.' }
-          format.json { render json: @user, status: :created, location: @user }
+          redirect_to session[:referrer] || [:administration,@user]
         else
+          @club = Club.find params[:user][:club_ids][0]
           format.html { render action: "new" }
           format.json { render json: @user.errors, status: :unprocessable_entity }
         end
@@ -65,8 +68,7 @@ module Administration
       respond_to do |format|
         if @user.update_attributes(params[:user])
           @user.log_update(current_user.full_name, "#{@user.full_name} was updated")
-          format.html { redirect_to [:administration,@user], notice: 'Employee was successfully updated.' }
-          format.json { head :no_content }
+          redirect_to session[:referrer] || [:administration,@user]
         else
           format.html { render action: "edit" }
           format.json { render json: @user.errors, status: :unprocessable_entity }

@@ -1,6 +1,15 @@
-<h1>Editing Employee</h1>
+<% content_for :main_title do %>
+  <h1>Edit Employee</h1>
+<% end %>
 
-<%= render 'form' %>
+<% content_for :additional_styles do %>
+<link rel="stylesheet" href="/css/styles/form.css?v=1">
+<% end %>
 
-<%= link_to 'Show', [:administration,@user] %> |
-<%= link_to 'Back', administration_users_path %>
+<div class="with-padding">
+  <%= render 'form' %>
+</div>
+
+<% content_for :js_specific do %>
+<script src="/js/developr.input.js"></script>
+<% end %>

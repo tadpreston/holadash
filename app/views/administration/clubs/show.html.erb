@@ -21,4 +21,51 @@
       <%= link_to 'Back to region', [:administration, @region], class: 'button' %>
     </span>
   </p>
+
+  <h2 class="thin">Employees</h2>
+
+  <div class="table-header blue-gradient">
+    <%= link_to "Add an employee", new_administration_user_path(club_id: @club.id), class: 'button compact blue-gradient glossy' %>
+  </div>
+
+  <table class="table responsive-table" id="employee-list">
+
+    <thead>
+      <tr>
+        <th scope="col">Employee Name</th>
+        <th scope="col">Username</th>
+        <th scope="col">Date Created</th>
+        <th scope="col">Date Modified</th>
+        <th scope="col" width="120" class="align-right">Actions</th>
+      </tr>
+    </thead>
+
+    <tfoot>
+    </tfoot>
+
+    <tbody>
+    <% @club.users.each do |user| %>
+      <tr>
+        <th scope="row">
+          <%= user.full_name %>
+        </th>
+        <td><%= user.username %></td>
+        <td><%= club.created_at.strftime('%B %-d, %Y %H:%M:%S') %></td>
+        <td><%= club.updated_at.strftime('%B %-d, %Y %H:%M:%S') %></td>
+        <td class="align-right vertical-center">
+          <span class="button-group compact">
+            <%= link_to 'Edit', edit_administration_user_path(user), class: "button icon-pencil" %>
+            <%= link_to '', [:administration, user], class: "button icon-read with-tooltip", title: "Show" %>
+            <%= link_to '', [:administration, user], confirm: 'Are you sure?', method: :delete, class: "button icon-trash with-tooltip confirm", title: "Delete" %>
+          </span>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+
+  </table>
+
+  <div class="table-footer">
+    <%= "#{@club.users.size} clubs found" %>
+  </div>
 </div>
