@@ -10,4 +10,6 @@ class Message < ActiveRecord::Base
   has_many :blind_receipients
   has_many :bcc_users, through: :blind_receipients, source: :user
 
+  StatusDraft = 'draft'
+  StatusSent = 'sent'
 end

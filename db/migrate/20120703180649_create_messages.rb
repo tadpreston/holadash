@@ -4,7 +4,8 @@ class CreateMessages < ActiveRecord::Migration
       t.integer :author_id
       t.string :subject
       t.text :body
-      t.string :status
+      t.string :status, default: 'draft'
+      t.string :importance, default: 'normal'
 
       t.timestamps
     end
