@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   has_many :club_users
   has_many :clubs, through: :club_users
+  has_many :messages, foreign_key: :author_id
 
   include SysLogger
 

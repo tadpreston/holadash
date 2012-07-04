@@ -1,0 +1,2 @@
+class Receipient < UserMessage
+end

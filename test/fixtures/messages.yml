@@ -1,13 +1,2 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  from_id: 1
-  subject: MyString
-  body: MyText
-  status: MyString
-
-two:
-  from_id: 1
-  subject: MyString
-  body: MyText
-  status: MyString

@@ -1,0 +1,2 @@
+class CopiedReceipient < UserMessage
+end
