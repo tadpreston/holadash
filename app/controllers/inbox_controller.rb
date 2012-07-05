@@ -1,6 +1,6 @@
-
-class MessagesController < ApplicationController
+class InboxController < ApplicationController
   def index
+    @envelopes = current_user.envelopes
   end
 
   def new

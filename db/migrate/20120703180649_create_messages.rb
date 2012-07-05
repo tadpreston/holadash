@@ -6,7 +6,6 @@ class CreateMessages < ActiveRecord::Migration
       t.text      :body
       t.string    :status, default: 'draft'
       t.string    :importance, default: 'normal'
-      t.datetime  :send_at
 
       t.timestamps
     end

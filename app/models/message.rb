@@ -9,4 +9,13 @@ class Message < ActiveRecord::Base
 
   StatusDraft = 'draft'
   StatusSent = 'sent'
+
+  def deliver
+    sent_at = Time.now
+    envelopes.each do |e|
+      e.update_attributes(sent_at: sent_at)
+    end
+    self.status = StatusSent
+    self.save!
+  end
 end

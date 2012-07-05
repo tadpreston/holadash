@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :club_users
   has_many :clubs, through: :club_users
   has_many :messages, foreign_key: :author_id
-  has_many :envelopes, foreign_key: :recipient_id
+  has_many :envelopes, foreign_key: :recipient_id, conditions: 'sent_at is not NULL'
 
   ROLE_ROOT = "root"
   ROLE_SYSTEM_ADMIN = "system_admin"

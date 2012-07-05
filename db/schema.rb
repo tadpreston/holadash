@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20120704213432) do
     t.string   "recipient_type"
     t.boolean  "read_flag",      :default => false
     t.boolean  "trash_flag",     :default => false
+    t.datetime "sent_at"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
   end
@@ -47,7 +48,6 @@ ActiveRecord::Schema.define(:version => 20120704213432) do
     t.text     "body"
     t.string   "status",     :default => "draft"
     t.string   "importance", :default => "normal"
-    t.datetime "send_at"
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
   end
