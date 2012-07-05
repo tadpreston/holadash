@@ -1,2 +1,0 @@
-class Receipient < UserMessage
-end

@@ -1,2 +1,0 @@
-class BlindReceipient < UserMessage
-end
