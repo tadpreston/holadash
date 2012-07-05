@@ -11,4 +11,12 @@ class Envelope < ActiveRecord::Base
   def sent
     message.sent_at
   end
+
+  def is_read?
+    self.read_flag
+  end
+
+  def is_trash?
+    self.trash_flag
+  end
 end

@@ -24,164 +24,58 @@
 
 							<ul class="unstyled-list open-on-panel-content">
 								<li class="big-menu grey-gradient with-right-arrow">
-                                                                    <span><span class="list-count"><%= @envelopes.count %></span>Inbox</span>
+                                                                        <span><span class="list-count"><%= @drafts.size %></span>Drafts</span>
 									<ul class="message-menu">
-                                                                            <% @envelopes.each do |envelope| %>
-										<li class="message-menu">
+                                                                          <% @drafts.each do |message| %>
+										<li>
 											<span class="message-status">
-												<a href="#" class="unstarred" title="Not starred">Not starred</a>
 											</span>
 											<span class="message-info">
-                                                                                            <span class="blue"><%= envelope.created_at.strftime('%b %d %H:%M') %></span>
+												<span class="blue"><%= message.updated_at.strftime('%b %d %H:%M') %></span>
 											</span>
 											<a href="ajax-demo/inbox-message.html" title="Read message">
-                                                                                             <strong class="blue"><%= envelope.message.author.full_name %></strong><br>
-                                                                                             <%= envelope.message.subject %>
+                                                                                          <strong class="blue"><%= message.send_tos.first.full_name %></strong><br>
+                                                                                                <%= message.subject %>
 											</a>
 										</li>
-                                                                            <% end %>
+                                                                          <% end %>
 									</ul>
 								</li>
 								<li class="big-menu grey-gradient with-right-arrow">
-									<span><span class="list-count">8</span>Friends</span>
+                                                                        <span><span class="list-count"><%= @sent.size %></span>Sent</span>
 									<ul class="message-menu">
+                                                                          <% @drafts.each do |message| %>
 										<li>
 											<span class="message-status">
-												<a href="#" class="unstarred" title="Not starred">Not starred</a>
 											</span>
 											<span class="message-info">
-												<span class="blue">Mar 5</span>
+												<span class="blue"><%= message.updated_at.strftime('%b %d %H:%M') %></span>
 											</span>
 											<a href="ajax-demo/inbox-message.html" title="Read message">
-												<strong class="blue">May Starck</strong><br>
-												Message subject
+                                                                                          <strong class="blue"><%= message.send_tos.first.full_name %></strong><br>
+                                                                                                <%= message.subject %>
 											</a>
 										</li>
-										<li class="message-menu">
-											<span class="message-status">
-												<a href="#" class="unstarred" title="Not starred">Not starred</a>
-											</span>
-											<span class="message-info">
-												<span class="blue">Feb 21</span>
-											</span>
-											<a href="ajax-demo/inbox-message.html" title="Read message">
-												<strong class="blue">John Doe</strong><br>
-												Other subject
-											</a>
-										</li>
-										<li class="message-menu">
-											<span class="message-status">
-												<a href="#" class="unstarred" title="Not starred">Not starred</a>
-											</span>
-											<span class="message-info">
-												<span class="blue">Feb 15</span>
-											</span>
-											<a href="ajax-demo/inbox-message.html" title="Read message">
-												<strong class="blue">John Doe</strong><br>
-												<b>Re:</b> replied message
-											</a>
-										</li>
-										<li class="message-menu">
-											<span class="message-status">
-												<a href="#" class="unstarred" title="Not starred">Not starred</a>
-											</span>
-											<span class="message-info">
-												<span class="blue">Feb 5</span>
-											</span>
-											<a href="ajax-demo/inbox-message.html" title="Read message">
-												<strong class="blue">May Starck</strong><br>
-												Another subject
-											</a>
-										</li>
-										<li class="message-menu">
-											<span class="message-status">
-												<a href="#" class="unstarred" title="Not starred">Not starred</a>
-											</span>
-											<span class="message-info">
-												<span class="blue">Jan 28</span>
-											</span>
-											<a href="ajax-demo/inbox-message.html" title="Read message">
-												<strong class="blue">May Starck</strong><br>
-												Old subject
-											</a>
-										</li>
-										<li>
-											<span class="message-status">
-												<a href="#" class="unstarred" title="Not starred">Not starred</a>
-											</span>
-											<span class="message-info">
-												<span class="blue">Mar 5</span>
-											</span>
-											<a href="ajax-demo/inbox-message.html" title="Read message">
-												<strong class="blue">May Starck</strong><br>
-												Message subject
-											</a>
-										</li>
-										<li class="message-menu">
-											<span class="message-status">
-												<a href="#" class="unstarred" title="Not starred">Not starred</a>
-											</span>
-											<span class="message-info">
-												<span class="blue">Feb 21</span>
-											</span>
-											<a href="ajax-demo/inbox-message.html" title="Read message">
-												<strong class="blue">John Doe</strong><br>
-												Other subject
-											</a>
-										</li>
-										<li class="message-menu">
-											<span class="message-status">
-												<a href="#" class="unstarred" title="Not starred">Not starred</a>
-											</span>
-											<span class="message-info">
-												<span class="blue">Feb 15</span>
-											</span>
-											<a href="ajax-demo/inbox-message.html" title="Read message">
-												<strong class="blue">John Doe</strong><br>
-												<b>Re:</b> replied message
-											</a>
-										</li>
+                                                                          <% end %>
 									</ul>
 								</li>
+                                                              <% @envelopes.each do |envelope| %>
 								<li class="message-menu">
-									<span class="message-status">
-										<a href="#" class="starred" title="Starred">Starred</a>
-										<a href="#" class="new-message" title="Mark as read">New</a>
-									</span>
-									<span class="message-info">
-										<span class="blue">17:12</span>
-										<a href="#" class="attach" title="Download attachment">Attachment</a>
-									</span>
-									<a href="ajax-demo/inbox-message.html" title="Read message">
-										<strong class="blue">John Doe</strong><br>
-										<strong>Mail subject</strong>
-									</a>
-								</li>
-								<li class="message-menu">
-									<span class="message-status">
+    			  	  				        <span class="message-status">
 										<a href="#" class="unstarred" title="Not starred">Not starred</a>
-										<a href="#" class="new-message" title="Mark as read">New</a>
+                                                                              <% if !envelope.is_read? %>
+								                <a href="#" class="new-message" title="Mark as read">New</a>
+                                                                              <% end %>
 									</span>
 									<span class="message-info">
-										<span class="blue">15:47</span>
+                                                                                <span class="blue"><%= envelope.created_at.strftime('%b %d %H:%M') %></span>
 									</span>
 									<a href="ajax-demo/inbox-message.html" title="Read message">
-										<strong class="blue">May Starck</strong><br>
-										<strong>Mail subject a bit longer</strong>
+                                                                                <strong class="blue"><%= envelope.message.author.full_name %></strong><br>
+                                                                                <%= envelope.message.subject %>
 									</a>
 								</li>
-								<li class="message-menu">
-									<span class="message-status">
-										<a href="#" class="unstarred" title="Not starred">Not starred</a>
-									</span>
-									<span class="message-info">
-										<span class="blue">15:12</span>
-									</span>
-									<a href="ajax-demo/inbox-message.html" title="Read message">
-										<strong class="blue">May Starck</strong><br>
-										Read message
-									</a>
-								</li>
+                                                              <% end %>
 							</ul>
 
 						</div>
