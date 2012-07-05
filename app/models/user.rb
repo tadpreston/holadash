@@ -8,12 +8,12 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
   validates :username, presence: true, uniqueness: true
 
+  include SysLogger
+
   has_many :club_users
   has_many :clubs, through: :club_users
   has_many :messages, foreign_key: :author_id
   has_many :envelopes, foreign_key: :recipient_id
-
-  include SysLogger
 
   ROLE_ROOT = "root"
   ROLE_SYSTEM_ADMIN = "system_admin"
