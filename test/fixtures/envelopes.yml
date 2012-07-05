@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  message_id: 1
+  receipient_id: 1
+  receipient_type: MyString
+  read_flag: false
+  trash_flag: false
+
+two:
+  message_id: 1
+  receipient_id: 1
+  receipient_type: MyString
+  read_flag: false
+  trash_flag: false
