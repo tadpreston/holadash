@@ -6,7 +6,13 @@ Portal::Application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'access_denied', to: 'sessions#access_denied', as: 'access_denied'
   get 'inbox', to: 'inbox#index', as: 'inbox'
+
   resources :messages
+  resources :users do
+    collection do
+      get 'search'
+    end
+  end
 
   namespace :administration do
     resources :regions do

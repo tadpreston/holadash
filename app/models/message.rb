@@ -1,21 +1,26 @@
 class Message < ActiveRecord::Base
-  attr_accessible :body, :subject, :author_id
+  attr_accessible :body, :subject, :author_id, :send_to, :copy_to, :blind_copy_to
 
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   has_many   :envelopes, dependent: :destroy
-  has_many   :send_tos, class_name: 'Envelope', conditions: 'recipient_type = \'to\''
-  has_many   :copy_tos, class_name: 'Envelope', conditions: 'recipient_type = \'cc\''
-  has_many   :blind_tos, class_name: 'Envelope', conditions: 'recipient_type = \'bcc\''
 
   StatusDraft = 'draft'
   StatusSent = 'sent'
 
   def deliver
-    sent_at = Time.now
-    envelopes.each do |e|
-      e.update_attributes(sent_at: sent_at)
+    (self.send_to.split(', ') + self.copy_to.split(', ')).each do |recipient|
+      user = User.find_by_display_name(recipient)
+      if user
+        self.envelopes.create(recipient_id: user.id)
+      end
     end
     self.status = StatusSent
     self.save!
   end
+
+  def mark_as_read(user)
+    envelope = self.envelopes.where('recipient_id = :id', id: user.id).first
+    envelope.mark_as_read
+  end
+
 end

@@ -1,0 +1,130 @@
+<div class="panel-control">
+  <%= link_to '#', class: 'button', id: 'send-message' do %>
+    <span class="button-icon blue-gradient glossy"><span class="icon-outbox"></span></span>
+    Send
+  <% end %>
+  <%= link_to '#', class: 'button', id: 'save-message' do %>
+    <span class="button-icon green-gradient glossy"><span class="icon-download"></span></span>
+      Save
+  <% end %>
+</div>
+
+<br />
+
+<fieldset class="fieldset white-gradient">
+  <%= form_for @message, remote: true do |f| %>
+
+    <p class="button-height inline-label" id="send-to">
+      <%= f.label :send_to, 'To:', class: 'label' %>
+      <%= f.text_field :send_to, class: 'input full-width' %>
+    </p>
+
+    <p class="button-height inline-label">
+      <%= f.label :copy_to, 'Cc:', class: 'label' %>
+      <%= f.text_field :copy_to, class: 'input full-width' %>
+    </p>
+
+    <p class="button-height inline-label">
+      <%= f.label :subject, class: 'label' %>
+      <%= f.text_field :subject, class: 'input full-width' %>
+    </p>
+
+    <p class="button-height inline-label">
+      <%= f.label :body, class: 'label' %>
+      <%= f.text_area :body %>
+    </p>
+
+    <%= hidden_field_tag 'action_type' %>
+  <% end %>
+</fieldset>
+
+<script>
+  var editorTextarea = $('#message_body'),
+      editorWrapper = editorTextarea.parent(),
+      editor = editorTextarea.cleditor({
+                  width:  '100%',
+                  height: 350
+              })[0];
+
+  $(function() {
+    function split( val ) {
+        return val.split( /,\s*/ );
+    }
+    function extractLast( term ) {
+        return split( term ).pop();
+    }
+    $("#message_send_to")
+          .bind( "keydown", function( event ) {
+              if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( "autocomplete" ).menu.active ) {
+                  event.preventDefault();
+              }
+          })
+          .autocomplete({
+              minLength: 2,
+              source: function( request, response ) {
+                  $.getJSON( "<%= "#{search_users_path}.json" %>", {
+                    term: extractLast( request.term )
+                  }, response );
+              },
+              search: function() {
+                  var term = extractLast( this.value );
+                  if ( term.length < 2 ) {
+                      return false;
+                    }
+              },
+              focus: function() {
+                      return false;
+              },
+              select: function( event, ui ) {
+                        var terms = split( this.value );
+                        terms.pop();
+                        terms.push( ui.item.label );
+                        terms.push( "" );
+                        this.value = terms.join( ", ");
+                        return false;
+               }
+          });
+
+    $("#message_copy_to")
+          .bind( "keydown", function( event ) {
+              if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( "autocomplete" ).menu.active ) {
+                  event.preventDefault();
+              }
+          })
+          .autocomplete({
+              minLength: 2,
+              source: function( request, response ) {
+                  $.getJSON( "<%= "#{search_users_path}.json" %>", {
+                    term: extractLast( request.term )
+                  }, response );
+              },
+              search: function() {
+                  var term = extractLast( this.value );
+                  if ( term.length < 2 ) {
+                      return false;
+                    }
+              },
+              focus: function() {
+                      return false;
+              },
+              select: function( event, ui ) {
+                        var terms = split( this.value );
+                        terms.pop();
+                        terms.push( ui.item.label );
+                        terms.push( "" );
+                        this.value = terms.join( ", ");
+                        return false;
+               }
+          });
+
+    $("#send-message").bind( 'click', function( event ) {
+      $("#action_type").val("send");
+      alert($("#action_type").val());
+      $("form").submit();
+    });
+    $("#save-message").bind( 'click', function( event ) {
+      $("#action_type").value = "save";
+      $("form").submit();
+    });
+  });
+</script>

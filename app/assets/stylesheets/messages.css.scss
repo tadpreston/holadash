@@ -1,3 +1,35 @@
 // Place all the styles related to the messages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.ui-autocomplete { position: absolute; cursor: default };
+html .ui-autocomplete { width:1px; }
+
+.ui-menu {
+	list-style: none;
+	padding: 2px;
+	margin: 0;
+	display: block;
+	float: left;
+
+	.ui-menu { margin-top: -3px; }
+
+	.ui-menu-item {
+		margin: 0;
+		padding: 0;
+		zoom: 1;
+		float: left;
+		clear: left;
+		width: 100%;
+	
+		a {
+			text-decoration: none;
+			display: block;
+			padding: .2em, .4em;
+			line-height: 1.5;
+			zoom: 1;
+		}
+		a.ui-state-hover,
+		a.ui-state-active { font-weight: normal; margin: -1px; }
+	}
+}

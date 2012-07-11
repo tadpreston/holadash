@@ -1,9 +1,10 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :employee_id, :first_name, :last_name, :password, :password_confirmation, :roles, :username, :club_ids
+  attr_accessible :email, :employee_id, :first_name, :last_name, :password, :password_confirmation, :roles, :username, :club_ids, :display_name
 
   has_secure_password
 
   before_create { generate_token(:auth_token) }
+  before_save    { update_display_name }
 
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
   validates :username, presence: true, uniqueness: true
@@ -15,8 +16,8 @@ class User < ActiveRecord::Base
   has_many :messages, foreign_key: :author_id
   has_many :draft_messages, class_name: 'Message', foreign_key: :author_id, conditions: 'status = \'draft\''
   has_many :sent_messages, class_name: 'Message', foreign_key: :author_id, conditions: 'status = \'sent\''
-  has_many :envelopes, foreign_key: :recipient_id, conditions: 'sent_at is not NULL'
-  has_many :unread_envelopes, class_name: 'Envelope', foreign_key: :recipient_id, conditions: 'read_flag is false AND sent_at is not NULL'
+  has_many :envelopes, foreign_key: :recipient_id
+  has_many :unread_envelopes, class_name: 'Envelope', foreign_key: :recipient_id, conditions: 'read_flag is false'
 
   ROLE_ROOT = "root"
   ROLE_SYSTEM_ADMIN = "system_admin"
@@ -38,6 +39,14 @@ class User < ActiveRecord::Base
   AdminRoles = [ROLE_ROOT, ROLE_SYSTEM_ADMIN, ROLE_CLUB_OWNER, ROLE_REGIONAL_MANAGER, ROLE_CLUB_MANAGER]
 
   scope :normal, where(["roles not like ?", "%#{ROLE_ROOT}%"])
+
+  def self.name_search(query)
+    if query.present?
+      User.search_by_first_name_or_last_name("#{query}:*", "#{query}:*")
+    else
+      scoped
+    end
+  end
 
   def full_name
     "#{first_name} #{last_name}"
@@ -72,5 +81,9 @@ class User < ActiveRecord::Base
       is_admin = true if AdminRoles.include?(r)
     end
     is_admin
+  end
+
+  def update_display_name
+    self.display_name = "#{self.first_name} #{self.last_name}"
   end
 end

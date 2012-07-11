@@ -10,26 +10,3 @@
  *
  *= require_self
  */
-
-body { margin: 0; font-size: 1em; line-height: 1.4; }
-
-nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
-
-#page_header { background-color: #ccc;  }
-#page_header h1 { float: left; padding-left: 12px; }
-
-.clearfix:before, .clearfix:after { content: ""; display: table; }
-.clearfix:after { clear: both; }
-.clearfix { *zoom: 1; }
-
-.head_nav { float: right; }
-.head_nav li { float: left; margin-top: 10px; margin-bottom: 10px; margin-left: 10px; padding-right: 10px;  border-right: solid 1px black; }
-.head_nav li.last { border: none; }
-
-#main { margin: 0 auto; padding-top: 15px; }
-
-#sidebar-menu { float: left; width: 200px; height: 800px; padding: 13px 5px 5px 15px; }
-
-#site-body { float: left; width: 800px; clear: both;}
-
-#login-form { margin-left: 450px; margin-top: 200px; }
