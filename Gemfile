@@ -4,7 +4,7 @@ gem 'rails', '3.2.5'
 
 gem 'pg'
 gem 'thin'
-gem 'texticle', "2.0", require: 'texticle/rails'
+# gem 'texticle', "2.0", require: 'texticle/rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
