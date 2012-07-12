@@ -1,5 +1,11 @@
 <h2 class="thin mid-margin-bottom"><%= @message.subject %></h2>
-<h4 class="no-margin-top">From: <%= @message.author.display_name %></h4>
+<h4 class="no-margin-top no-margin-bottom">From: <%= @message.author.display_name %></h4>
+<h5 class="no-margin-bottom no-margin-top">To: <%= @message.send_to %></h5>
+<h5 class="no-margin-top">
+<% unless @message.copy_to.blank? %>
+  Cc: <%= @message.copy_to %>
+<% end %>
+</h5>
 
 <div class="large-box-shadow white-gradient with-border">
 
