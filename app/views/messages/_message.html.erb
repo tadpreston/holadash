@@ -1,4 +1,8 @@
 <div class="panel-control">
+  <%= link_to '#', class: 'button float-right', id: 'cancel-message' do %>
+    <span class="button-icon red-gradient glossy"><span class="icon-cross-round"></span></span>
+    Cancel
+  <% end %>
   <%= link_to '#', class: 'button', id: 'send-message' do %>
     <span class="button-icon blue-gradient glossy"><span class="icon-outbox"></span></span>
     Send
@@ -124,6 +128,9 @@
     $("#save-message").bind( 'click', function( event ) {
       $("#action_type").value = "save";
       $("form").submit();
+    });
+    $("#cancel-message").bind( 'click', function( event ) {
+      $('#message-panel').html("");
     });
   });
 </script>

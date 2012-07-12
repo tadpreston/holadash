@@ -16,6 +16,9 @@
                         <a href="#" class="button" title="Move to trash"><span class="icon-trash"></span></a>
                         <a href="#" class="button" title="Mark as important"><span class="icon-flag"></span></a>
                 </span>
+                <%= link_to "#", class: 'button with-tooltip', id: 'close-message', title: 'Close Message' do %>
+                  <span class="icon-cross-round"></span>
+                <% end %>
         </div>
 
         <div class="with-padding">
@@ -24,3 +27,10 @@
 
 </div>
 
+<script>
+  $(function() {
+    $("#close-message").bind( 'click', function(event) {
+      $('#message-panel').html("");
+    });
+  });
+</script>
