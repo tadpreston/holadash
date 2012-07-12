@@ -202,7 +202,8 @@ CREATE TABLE messages (
     status character varying(255) DEFAULT 'draft'::character varying,
     importance character varying(255) DEFAULT 'normal'::character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    sent_at timestamp without time zone
 );
 
 
@@ -468,6 +469,13 @@ CREATE INDEX index_messages_on_author_id ON messages USING btree (author_id);
 
 
 --
+-- Name: index_messages_on_sent_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_messages_on_sent_at ON messages USING btree (sent_at);
+
+
+--
 -- Name: index_messages_on_subject; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -550,3 +558,5 @@ INSERT INTO schema_migrations (version) VALUES ('20120704213432');
 INSERT INTO schema_migrations (version) VALUES ('20120709211033');
 
 INSERT INTO schema_migrations (version) VALUES ('20120710195839');
+
+INSERT INTO schema_migrations (version) VALUES ('20120712163914');

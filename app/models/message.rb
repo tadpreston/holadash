@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
-  attr_accessible :body, :subject, :author_id, :send_to, :copy_to, :blind_copy_to
+  attr_accessible :body, :subject, :author_id, :send_to, :copy_to, :blind_copy_to, :sent_at
 
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   has_many   :envelopes, dependent: :destroy
