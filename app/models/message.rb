@@ -29,4 +29,17 @@ class Message < ActiveRecord::Base
     end
   end
 
+  def author_name
+    author.display_name
+  end
+
+  def reply(all_flag = nil)
+    new_send_to = author_name
+    new_copy_to = all_flag.blank? ? "" : self.send_to + self.copy_to
+    new_subject = "Re: #{self.subject}"
+    new_body = "<br /><div class=\"left-border grey\">On #{self.updated_at.strftime("%m/%d/%Y %I:%M %p")} #{author_name} wrote: <br /><br />#{self.body}</div>"
+
+    Message.new(send_to: new_send_to, copy_to: new_copy_to, subject: new_subject, body: new_body)
+  end
+
 end
