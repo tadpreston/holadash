@@ -14,10 +14,7 @@ class User < ActiveRecord::Base
   has_many :club_users
   has_many :clubs, through: :club_users
   has_many :messages, foreign_key: :author_id
-  has_many :draft_messages, class_name: 'Message', foreign_key: :author_id, conditions: 'status = \'draft\''
-  has_many :sent_messages, class_name: 'Message', foreign_key: :author_id, conditions: 'status = \'sent\''
   has_many :envelopes, foreign_key: :recipient_id
-  has_many :unread_envelopes, class_name: 'Envelope', foreign_key: :recipient_id, conditions: 'read_flag is false'
 
   ROLE_ROOT = "root"
   ROLE_SYSTEM_ADMIN = "system_admin"

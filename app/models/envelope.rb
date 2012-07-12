@@ -8,11 +8,15 @@ class Envelope < ActiveRecord::Base
   CopyTo = 'cc'
   BlindCopyTo = 'bcc'
 
+  scope :belongs_to_user, lambda { |user_id| where(recipient_id: user_id) }
+  scope :unread, where(read_flag: false)
+  scope :order_by_sent_at, joins(:message).order('messages.sent_at')
+
   def from
     message.author.full_name
   end
 
-  def sent
+  def sent_at
     message.sent_at
   end
 

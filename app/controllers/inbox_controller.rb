@@ -10,9 +10,9 @@ class InboxController < ApplicationController
   private
 
   def get_data
-    @envelopes = current_user.envelopes
-    @unread = current_user.unread_envelopes.count
-    @drafts = current_user.draft_messages
-    @sent   = current_user.sent_messages
+    @envelopes = Envelope.belongs_to_user(current_user.id).order_by_sent_at
+    @unread = Envelope.belongs_to_user(current_user.id).unread.count
+    @drafts = Message.belongs_to_user(current_user.id).draft
+    @sent = Message.belongs_to_user(current_user.id).sent
   end
 end

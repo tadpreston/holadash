@@ -7,6 +7,10 @@ class Message < ActiveRecord::Base
   StatusDraft = 'draft'
   StatusSent = 'sent'
 
+  scope :belongs_to_user, lambda { |user_id| where(author_id: user_id) }
+  scope :draft, where(status: StatusDraft)
+  scope :sent, where(status: StatusSent)
+
   def deliver
     (self.send_to.split(', ') + self.copy_to.split(', ')).each do |recipient|
       user = User.find_by_display_name(recipient)
