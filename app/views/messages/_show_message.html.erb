@@ -16,7 +16,9 @@
                           <span class="icon-replay-all"></span>
                         <% end %>
 
-                        <a href="#" class="button" title="Forward"><span class="icon-extract"></span></a>
+                        <%= link_to message_forward_path(@message), class: 'button', title: 'Forward', remote: true do %>
+                          <span class="icon-extract"></span>
+                        <% end %>
                 </span>
                 <span class="button-group children-tooltip">
                         <a href="#" class="button" title="Move to trash"><span class="icon-trash"></span></a>

@@ -10,6 +10,7 @@ Portal::Application.routes.draw do
 
   resources :messages do
     get 'reply'
+    get 'forward'
   end
   resources :users do
     collection do

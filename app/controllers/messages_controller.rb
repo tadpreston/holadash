@@ -51,4 +51,11 @@ class MessagesController < ApplicationController
       format.js { render layout: false }
     end
   end
+
+  def forward
+    @message = Message.find(params[:message_id]).forward
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
 end

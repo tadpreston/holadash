@@ -19,6 +19,7 @@ class Message < ActiveRecord::Base
       end
     end
     self.status = StatusSent
+    self.sent_at = Time.now
     self.save!
   end
 
@@ -40,4 +41,11 @@ class Message < ActiveRecord::Base
     Message.new(send_to: new_send_to, copy_to: new_copy_to, subject: new_subject, body: new_body)
   end
 
+  def forward
+    new_subject = "Fwd: #{self.subject}"
+    new_msg_hdr = "<br /><br />--------Original Message--------<br /><b>Subject:</b> #{self.subject}<br /><b>Date:</b> #{self.sent_at.strftime('%a, %-d %b %Y %H:%M')}<br /><b>To:</b> #{self.send_to}<br/>" + (self.copy_to.blank? ? "" : "<b>Cc:</b> #{self.copy_to}<br />") + "<br /><br />" 
+    new_body = new_msg_hdr + self.body
+
+    Message.new(subject: new_subject, body: new_body)
+  end
 end
