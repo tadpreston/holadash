@@ -7,4 +7,12 @@ module InboxHelper
       "<No recipients>"
     end
   end
+
+  def subject(message)
+    unless message.subject.blank?
+      message.subject
+    else
+      '<No Subject>'
+    end
+  end
 end

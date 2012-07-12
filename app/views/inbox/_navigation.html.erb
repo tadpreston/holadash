@@ -11,7 +11,7 @@
                                 </span>
                                 <%= link_to edit_message_path(message), title: 'Edit Message', remote: true do %>
                                   <strong class="blue"><%= send_tos(message) %></strong><br>
-                                        <%= message.subject %>
+                                        <%= subject(message) %>
                                 <% end %>
                         </li>
                   <% end %>
@@ -29,7 +29,7 @@
                                 </span>
                                 <%= link_to message_path(message), title: 'View Message', remote: true do %>
                                   <strong class="blue"><%= send_tos(message) %></strong><br>
-                                        <%= message.subject %>
+                                        <%= subject(message) %>
                                 <% end %>
                         </li>
                   <% end %>
@@ -48,7 +48,7 @@
                 </span>
                 <%= link_to message_path(envelope.message), title: 'View Message', remote: true do %>
                         <strong class="blue"><%= envelope.message.author.full_name %></strong><br>
-                        <%= envelope.message.subject %>
+                        <%= subject(envelope.message) %>
                 <% end %>
         </li>
       <% end %>
