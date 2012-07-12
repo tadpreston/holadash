@@ -8,12 +8,9 @@ Portal::Application.routes.draw do
   get 'inbox', to: 'inbox#index', as: 'inbox'
   get 'inbox/refresh', to: 'inbox#refresh', as: 'inbox_refresh'
 
-#  resources :inbox do
-#    collection do
-#      get 'refresh'
-#    end
-#  end
-  resources :messages
+  resources :messages do
+    get 'reply'
+  end
   resources :users do
     collection do
       get 'search'

@@ -5,8 +5,11 @@
 
         <div class="button-height with-mid-padding silver-gradient no-margin-top">
                 <span class="button-group children-tooltip">
-                        <a href="#" class="button blue-gradient icon-reply" title="Reply to this message">Reply</a>
-                        <a href="#" class="button" title="Reply to all"><span class="icon-replay-all"></span></a>
+                        <%= link_to 'Reply', message_reply_path(@message), class: 'button blue-gradient icon-reply', title: 'Reply to this message', remote: true %>
+                        <%= link_to message_reply_path(@message, reply_type: 'all'), class: 'button', title: 'Reply to all', remote: true do %>
+                          <span class="icon-replay-all"></span>
+                        <% end %>
+
                         <a href="#" class="button" title="Forward"><span class="icon-extract"></span></a>
                 </span>
                 <span class="button-group children-tooltip">
