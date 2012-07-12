@@ -23,10 +23,8 @@ class Message < ActiveRecord::Base
   end
 
   def mark_as_read(user)
-    unless self.author == user
-      envelope = self.envelopes.where('recipient_id = :id', id: user.id).first
-      envelope.mark_as_read
-    end
+    envelope = self.envelopes.where('recipient_id = :id', id: user.id).first
+    envelope.mark_as_read if envelope
   end
 
   def author_name
