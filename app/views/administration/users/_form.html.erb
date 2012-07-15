@@ -74,7 +74,11 @@
     <p class="button-height">
       <span class="button-group">
         <%= f.submit class: 'button icon-download' %>
-        <%= link_to 'Cancel', [:administration, @club.region, @club], class: 'button' %>
+        <% if @club %>
+          <%= link_to 'Cancel', [:administration, @club.region, @club], class: 'button' %>
+        <% else %>
+          <%= link_to 'Cancel', administration_users_path, class: 'button' %>
+        <% end %>
       </span>
     </p>
 

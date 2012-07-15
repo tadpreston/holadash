@@ -1,31 +1,59 @@
-<h1>Employee Listing</h1>
-
-<table>
-  <tr>
-    <th>Employee ID</th>
-    <th>Username</th>
-    <th>Email</th>
-    <th>First name</th>
-    <th>Last name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @users.each do |user| %>
-  <tr>
-    <td><%= user.employee_id %></td>
-    <td><%= user.username %></td>
-    <td><%= user.email %></td>
-    <td><%= user.first_name %></td>
-    <td><%= user.last_name %></td>
-    <td><%= link_to 'Show', [:administration,user] %></td>
-    <td><%= link_to 'Edit', edit_administration_user_path(user) %></td>
-    <td><%= link_to 'Destroy', [:administration,user], confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<% content_for :main_title do %>
+  <h1>Employee Maintenance</h1>
 <% end %>
-</table>
 
-<br />
+<% content_for :additional_styles do %>
+<link rel="stylesheet" href="/css/styles/table.css?v=1">
+<% end %>
 
-<%= link_to 'New Employee', new_administration_user_path %>
+
+<div class="with-padding">
+
+  <div class="table-header blue-gradient">
+    <%= link_to 'New Employee', new_administration_user_path, class: 'button compact blue-gradient glossy' %>
+  </div>
+  <table class="table responsive-table" id="region-list">
+
+    <thead>
+      <tr>
+        <th scope="col">Employee ID</th>
+        <th scope="col" width="15%">Username</th>
+        <th scope="col" width="15%">Email</th>
+        <th scope="col" width="15%">First name</th>
+        <th scope="col" width="15%">Last name</th>
+        <th scope="col" width="120" class="align-right">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <th scope="row">
+             <%= user.employee_id %> 
+          </th>
+          <td><%= user.username %></td>
+          <td><%= user.email %></td>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td class="align-right vertical-center">
+            <span class="button-group compact">
+              <%= link_to 'Edit', edit_administration_user_path(user), class: "button icon-pencil" %>
+              <%= link_to '', [:administration, user], class: "button icon-read with-tooltip", title: "Show" %>
+              <%= link_to '', [:administration,user], confirm: 'Are you sure?', method: :delete, class: "button icon-trash with-tooltip confirm", title: "Delete" %>
+            </span>
+          </td>
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+
+  <div class="table-footer">
+    <%= "#{@users.size} employees found" %>
+  </div>
+
+</div>
+
+<% content_for :js_specific do %>
+<% end %>
