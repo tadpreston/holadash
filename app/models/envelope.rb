@@ -36,6 +36,6 @@ class Envelope < ActiveRecord::Base
   end
 
   def trash
-    self.update_attributes(read_flag: true)
+    self.update_attributes(trash_flag: true)
   end
 end
