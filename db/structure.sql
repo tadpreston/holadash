@@ -178,7 +178,7 @@ CREATE TABLE envelopes (
     trash_flag boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    author_flag boolean
+    author_flag boolean DEFAULT false
 );
 
 

@@ -52,25 +52,44 @@ class MessageTest < ActiveSupport::TestCase
         assert_equal 3, Message.sent.count
       end
     end
+  end
 
-    context 'deliver method' do
-      should 'create envelopes and set status to sent' do
-        @message = FactoryGirl.create(:message)
-        user = FactoryGirl.create(:user, first_name: 'Recip', last_name: 'Person')
-        User.stubs(:find_by_display_name).returns(user)
+  context 'deliver method' do
+    setup do
+      @author = FactoryGirl.create(:user, first_name: 'Bob', last_name: 'Jones')
+      @message = FactoryGirl.create(:message, author: @author)
+      user = FactoryGirl.create(:user, first_name: 'Recip', last_name: 'Person')
+      User.stubs(:find_by_display_name).returns(user)
+    end
 
-        @message.deliver
-        @message.reload
-        recipients = @message.send_to.split(', ') + @message.copy_to.split(', ')
-        assert_equal recipients.count, @message.envelopes.count
-        assert_equal @message.status, Message::StatusSent
-      end
+    should 'create envelopes and set status to sent' do
+      @message.deliver
+      @message.reload
+      recipients = @message.send_to.split(', ') + (@message.copy_to.split(', ') << @message.author_name)
+      assert_equal recipients.count, @message.envelopes.count
+      assert_equal @message.status, Message::StatusSent
+    end
 
-      should 'throw an exception because there are no send_to recipients' do
-        message = FactoryGirl.create(:message, send_to: '')
+    should 'throw an exception because there are no send_to recipients' do
+      @message.update_attributes(send_to: '')
+      assert_raise(Exceptions::NoSendToRecipients) { @message.deliver }
+    end
 
-        assert_raise(Exceptions::NoSendToRecipients) { message.deliver }
-      end
+    should 'create an author envelope' do
+      @message.deliver
+      assert ! Envelope.belongs_to_user(@author.id).empty?
+    end
+  end
+
+  context 'mark_as_read method' do
+    should 'set the read flag to true' do
+      message = FactoryGirl.create(:message)
+      user = FactoryGirl.create(:user)
+      envelope = message.envelopes.create(recipient_id: user.id)
+
+      message.mark_as_read user
+      envelope.reload
+      assert envelope.read_flag
     end
   end
 

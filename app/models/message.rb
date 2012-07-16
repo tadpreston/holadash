@@ -14,6 +14,8 @@ class Message < ActiveRecord::Base
   def deliver
     raise Exceptions::NoSendToRecipients if self.send_to.blank?
 
+    self.envelopes.create(recipient_id: self.author_id, author_flag: true)
+
     (self.send_to.split(', ') + self.copy_to.split(', ')).each do |recipient|
       user = User.find_by_display_name(recipient)
       if user
@@ -25,11 +27,10 @@ class Message < ActiveRecord::Base
     self.save!
   end
 
-  #  Commenting this out because marking the message should be at the envelope level. It should not come through the message
-#  def mark_as_read(user)
-#    envelope = self.envelopes.where('recipient_id = :id', id: user.id).first
-#    envelope.mark_as_read if envelope
-#  end
+  def mark_as_read(user)
+    envelope = self.envelopes.where('recipient_id = :id', id: user.id).first
+    envelope.mark_as_read if envelope
+  end
 
   def author_name
     author.display_name
