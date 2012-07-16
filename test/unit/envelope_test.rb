@@ -66,5 +66,23 @@ class EnvelopeTest < ActiveSupport::TestCase
         assert @envelope.is_read?
       end
     end
+
+    context 'trash method' do
+      should 'set the trash flag to true' do
+        @envelope.trash
+        assert @envelope.trash_flag
+      end
+    end
+
+    context 'is_trash? method' do
+      should 'return false' do
+        assert ! @envelope.is_trash?
+      end
+
+      should 'return true' do
+        @envelope.trash
+        assert @envelope.is_trash?
+      end
+    end
   end
 end

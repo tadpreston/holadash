@@ -177,7 +177,8 @@ CREATE TABLE envelopes (
     read_flag boolean DEFAULT false,
     trash_flag boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    author_flag boolean
 );
 
 
@@ -573,3 +574,5 @@ INSERT INTO schema_migrations (version) VALUES ('20120709211033');
 INSERT INTO schema_migrations (version) VALUES ('20120710195839');
 
 INSERT INTO schema_migrations (version) VALUES ('20120712163914');
+
+INSERT INTO schema_migrations (version) VALUES ('20120716021026');

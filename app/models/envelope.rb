@@ -1,5 +1,5 @@
 class Envelope < ActiveRecord::Base
-  attr_accessible :message_id, :read_flag, :recipient_id, :trash_flag
+  attr_accessible :message_id, :read_flag, :recipient_id, :trash_flag, :author_flag
 
   belongs_to :message
   belongs_to :recipient, class_name: 'User', foreign_key: :recipient_id
@@ -9,8 +9,11 @@ class Envelope < ActiveRecord::Base
   BlindCopyTo = 'bcc'
 
   scope :belongs_to_user, lambda { |user_id| where(recipient_id: user_id) }
+  scope :inbox, where(trash_flag: false, author_flag: false)
   scope :unread, where(read_flag: false)
-  scope :order_by_sent_at, joins(:message).order('messages.sent_at')
+  scope :trashed, where(trash_flag: true)
+  scope :sent, where(trash_flag: false, author_flag: true)
+  scope :order_by_sent_at, joins(:message).order('messages.sent_at ASC')
 
   def from
     message.author.full_name
@@ -29,6 +32,10 @@ class Envelope < ActiveRecord::Base
   end
 
   def mark_as_read
+    self.update_attributes(read_flag: true)
+  end
+
+  def trash
     self.update_attributes(read_flag: true)
   end
 end
