@@ -11,14 +11,14 @@ FactoryGirl.define do
 
   factory :envelope do
     recipient
-    recipient_type 'to'
   end
 
   factory :message do
     author
+    send_to 'Bob Jones, Heidi Baker,'
+    copy_to 'Mike Bickle,'
     subject 'This is a subject'
     body    'this is the body of the message'
-    envelopes { |envelopes| [envelopes.association(:envelope)] }
   end
 
 end

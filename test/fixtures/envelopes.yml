@@ -3,13 +3,11 @@
 one:
   message_id: 1
   recipient_id: 1
-  recipient_type: MyString
   read_flag: false
   trash_flag: false
 
 two:
   message_id: 1
   recipient_id: 1
-  recipient_type: MyString
   read_flag: false
   trash_flag: false
