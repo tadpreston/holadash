@@ -29,59 +29,59 @@ class EnvelopeTest < ActiveSupport::TestCase
   end
 
   context 'envelope class' do
-    setup do
-      @user = FactoryGirl.create(:user, first_name: 'Bill', last_name: 'Johnson')
-      @message = FactoryGirl.create(:message, author: @user)
-      User.stubs(:find_by_display_name).returns(FactoryGirl.create(:user))
-      @message.deliver
-      @envelope = @message.envelopes.first
-    end
-
-    context 'from method' do
-      should 'return the authors full name' do
-        assert_equal @user.full_name, @envelope.from
+    context 'with a message' do
+      setup do
+        @message = FactoryGirl.create(:sent_message_with_envelopes)
+        @envelope = @message.envelopes.first
+        User.stubs(:find_by_display_name).returns(FactoryGirl.create(:user))
       end
-    end
 
-    context 'sent_at method' do
-      should 'return the sent_at value' do
-        assert_equal @message.sent_at.strftime('%m%d%Y %H%M'), @envelope.sent_at.strftime('%m%d%Y %H%M')
+      context 'from method' do
+        should 'return the authors full name' do
+          assert_equal @message.author.full_name, @envelope.from
+        end
+      end
+
+      context 'sent_at method' do
+        should 'return the sent_at value' do
+          assert_equal @message.sent_at.strftime('%m%d%Y %H%M'), @envelope.sent_at.strftime('%m%d%Y %H%M')
+        end
       end
     end
 
     context 'is_read? method' do
       should 'return false' do
-        assert ! @envelope.is_read?
+        assert ! FactoryGirl.create(:envelope).is_read?
       end
 
       should 'return true' do
-        @envelope.mark_as_read
-        assert @envelope.is_read?
+        assert FactoryGirl.create(:read_envelope).is_read?
       end
     end
 
     context 'mark_as_read method' do
       should 'set the read flag to true' do
-        @envelope.mark_as_read
-        assert @envelope.is_read?
+        envelope = FactoryGirl.create(:envelope)
+        envelope.mark_as_read
+        assert envelope.is_read?
       end
     end
 
     context 'trash method' do
       should 'set the trash flag to true' do
-        @envelope.trash
-        assert @envelope.trash_flag
+        envelope = FactoryGirl.create(:envelope)
+        envelope.trash
+        assert envelope.trash_flag
       end
     end
 
     context 'is_trash? method' do
       should 'return false' do
-        assert ! @envelope.is_trash?
+        assert ! FactoryGirl.create(:envelope).is_trash?
       end
 
       should 'return true' do
-        @envelope.trash
-        assert @envelope.is_trash?
+        assert FactoryGirl.create(:trash_envelope).is_trash?
       end
     end
   end

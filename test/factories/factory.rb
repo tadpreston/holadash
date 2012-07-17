@@ -7,6 +7,14 @@ FactoryGirl.define do
     sequence(:username) { |n| "user#{n}" } 
     password 'supersecret'
     roles [User::ROLE_FRONT_DESK_STAFF]
+
+    factory :root_user do
+      roles [User::ROLE_ROOT]
+    end
+
+    factory :admin_user do
+      roles [User::ROLE_SYSTEM_ADMIN]
+    end
   end
 
   factory :envelope do
@@ -14,6 +22,14 @@ FactoryGirl.define do
 
     factory :author_envelope do
       author_flag true
+    end
+
+    factory :read_envelope do
+      read_flag true
+    end
+
+    factory :trash_envelope do
+      trash_flag true
     end
   end
 

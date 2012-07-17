@@ -5,14 +5,15 @@ class UserTest < ActiveSupport::TestCase
   should validate_presence_of :username
   should validate_uniqueness_of :email
   should validate_uniqueness_of :username
+  should have_many(:club_users)
+  should have_many(:clubs).through(:club_users)
+  should have_many(:messages)
+  should have_many(:envelopes)
 
   context "full_name method" do
-    setup do
-      @user = FactoryGirl.create(:user)
-    end
-
     should "return the full name of the user" do
-      assert_equal "#{@user.first_name} #{@user.last_name}", @user.full_name
+      user = FactoryGirl.create(:user)
+      assert_equal "#{user.first_name} #{user.last_name}", user.full_name
     end
   end
 
@@ -69,13 +70,40 @@ class UserTest < ActiveSupport::TestCase
 
   context "normal scope" do
     setup do
-      @root_user = FactoryGirl.create(:user, roles: [User::ROLE_ROOT])
-      @user = FactoryGirl.create(:user, roles: [User::ROLE_SYSTEM_ADMIN, User::ROLE_REGIONAL_MANAGER])
+      @root_user = FactoryGirl.create(:root_user)
+      @user = FactoryGirl.create(:admin_user)
     end
 
     should "not return root user" do
       users = User.normal
       assert ! users.include?(@root_user)
+    end
+  end
+
+  context 'is_admin? method' do
+    should 'return true' do
+      assert FactoryGirl.create(:admin_user).is_admin?
+      assert FactoryGirl.create(:root_user).is_admin?
+    end
+
+    should 'return false' do
+      assert ! FactoryGirl.create(:user).is_admin?
+    end
+  end
+
+  context 'update_display_name method' do
+    should 'update the display_name attribute when the user is saved' do
+      user = FactoryGirl.build(:user, first_name: 'lazy', last_name: 'bones')
+      user.save
+      assert_equal 'lazy bones', user.display_name
+    end
+  end
+
+  context 'name_search method' do
+    should 'return a user based on a partial of their name' do
+      FactoryGirl.create(:user, first_name: 'Reginald', last_name: 'Kingsley')
+      assert User.name_search('reg')
+      assert User.name_search('gsl')
     end
   end
 
