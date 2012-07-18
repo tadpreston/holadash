@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
-  attr_accessible :body, :subject, :author_id, :send_to, :copy_to, :blind_copy_to, :sent_at
+  attr_accessible :body, :subject, :author_id, :send_to, :copy_to, :blind_copy_to, :sent_at, :status
 
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   has_many   :envelopes, dependent: :destroy
@@ -9,7 +9,7 @@ class Message < ActiveRecord::Base
 
   scope :belongs_to_user, lambda { |user_id| where(author_id: user_id) }
   scope :draft, where(status: StatusDraft)
-  scope :sent, where(status: StatusSent)
+  scope :sent, joins(:envelopes).where("status = ? and envelopes.trash_flag = ?", StatusSent, false)
 
   def deliver
     raise Exceptions::NoSendToRecipients if self.send_to.blank?

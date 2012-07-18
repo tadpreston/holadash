@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   def show
     @message = Message.find params[:id]
+    @envelope = @message.envelopes.where(recipient_id: current_user.id).first
     @message.mark_as_read current_user
     respond_to do |format|
       format.js { render layout: false }
@@ -54,6 +55,15 @@ class MessagesController < ApplicationController
 
   def forward
     @message = Message.find(params[:message_id]).forward
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
+
+  def trash
+    message = Message.find params[:message_id]
+    envelope = message.envelopes.where(recipient_id: current_user.id).first
+    envelope.trash
     respond_to do |format|
       format.js { render layout: false }
     end

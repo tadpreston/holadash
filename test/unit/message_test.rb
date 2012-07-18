@@ -33,13 +33,11 @@ class MessageTest < ActiveSupport::TestCase
 
   context 'sent scope' do
     setup do
-      2.times do
-        FactoryGirl.create(:sent_message)
-      end
+      FactoryGirl.create(:sent_message_with_envelopes)
     end
 
     should 'return all sent messages' do
-      assert_equal 2, Message.sent.count
+      assert_equal 4, Message.sent.count
     end
   end
 

@@ -21,7 +21,9 @@
                         <% end %>
                 </span>
                 <span class="button-group children-tooltip">
-                        <a href="#" class="button" title="Move to trash"><span class="icon-trash"></span></a>
+                        <%= link_to (@envelope ? envelope_trash_path(@envelope) : message_trash_path(@message)), class: 'button', title: 'Move to trash', remote: true, method: :put do %>
+                          <span class="icon-trash"></span>
+                        <% end %>
                         <a href="#" class="button" title="Mark as important"><span class="icon-flag"></span></a>
                 </span>
                 <%= link_to "#", class: 'button with-tooltip', id: 'close-message', title: 'Close Message' do %>
