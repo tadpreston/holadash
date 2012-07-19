@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120709211033) do
+ActiveRecord::Schema.define(:version => 20120716021026) do
 
   create_table "club_users", :force => true do |t|
     t.integer  "club_id"
@@ -31,12 +31,11 @@ ActiveRecord::Schema.define(:version => 20120709211033) do
   create_table "envelopes", :force => true do |t|
     t.integer  "message_id"
     t.integer  "recipient_id"
-    t.string   "recipient_type"
-    t.boolean  "read_flag",      :default => false
-    t.boolean  "trash_flag",     :default => false
-    t.datetime "sent_at"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.boolean  "read_flag",    :default => false
+    t.boolean  "trash_flag",   :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "author_flag",  :default => false
   end
 
   add_index "envelopes", ["message_id"], :name => "index_envelopes_on_message_id"
@@ -44,15 +43,20 @@ ActiveRecord::Schema.define(:version => 20120709211033) do
 
   create_table "messages", :force => true do |t|
     t.integer  "author_id"
+    t.string   "send_to"
+    t.string   "copy_to"
+    t.string   "blind_copy_to"
     t.string   "subject"
     t.text     "body"
-    t.string   "status",     :default => "draft"
-    t.string   "importance", :default => "normal"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.string   "status",        :default => "draft"
+    t.string   "importance",    :default => "normal"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.datetime "sent_at"
   end
 
   add_index "messages", ["author_id"], :name => "index_messages_on_author_id"
+  add_index "messages", ["sent_at"], :name => "index_messages_on_sent_at"
   add_index "messages", ["subject"], :name => "index_messages_on_subject"
 
   create_table "regions", :force => true do |t|
@@ -86,9 +90,13 @@ ActiveRecord::Schema.define(:version => 20120709211033) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.string   "auth_token"
+    t.string   "display_name"
   end
 
+  add_index "users", ["display_name"], :name => "index_users_on_display_name"
   add_index "users", ["employee_id"], :name => "index_users_on_employee_id"
+  add_index "users", ["first_name"], :name => "index_users_on_first_name"
+  add_index "users", ["last_name"], :name => "index_users_on_last_name"
   add_index "users", ["username"], :name => "index_users_on_username"
 
 end
