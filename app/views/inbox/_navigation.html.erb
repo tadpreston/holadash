@@ -46,7 +46,7 @@
                                         <span class="blue"><%= sent_at(envelope) %></span>
                                 </span>
                                 <%= link_to message_path(envelope.message), title: 'view message', remote: true do %>
-                                    <strong class="blank"><%= envelope.author %></strong><br />
+                                    <strong class="blue"><%= envelope.from %></strong><br />
                                     <%= subject(envelope) %>
                                 <% end %>
                         </li>

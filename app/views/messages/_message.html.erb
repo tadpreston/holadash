@@ -13,7 +13,7 @@
   <% end %>
   <% unless @message.new_record? %>
   <%= link_to @message, confirm: 'Are you sure?', method: :delete, remote: true, class: 'button', id: 'delete-message' do %>
-    <span class="button-icon red-gradient glossy"><span class="icon-cross-round"></span></span>
+    <span class="button-icon red-gradient glossy"><span class="icon-trash"></span></span>
     Delete
   <% end %>
   <% end %>

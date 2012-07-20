@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
   def show
     @message = Message.find params[:id]
-    @envelope = @message.envelopes.where(recipient_id: current_user.id).first unless @message.author_id == current_user.id
+    @envelope = @message.envelopes.where(recipient_id: current_user.id).first
     @message.mark_as_read current_user
     respond_to do |format|
       format.js { render layout: false }
