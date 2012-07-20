@@ -81,7 +81,7 @@ module Administration
       @region.destroy
 
       respond_to do |format|
-        format.html { redirect_to administration_regions_url }
+        format.html { redirect_to administration_regions_url, notice: 'Region was successfully deleted' }
         format.json { head :no_content }
       end
     end

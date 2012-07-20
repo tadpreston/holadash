@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
   def destroy
     current_user.log_logout(current_user.full_name, "Logged out.")
     cookies.delete(:auth_token)
-    redirect_to login_path, notice: "You have been logged out"
+    redirect_to login_path, notice: 'You have been logged out!'
   end
 
   def access_denied
