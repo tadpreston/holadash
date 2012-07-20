@@ -7,9 +7,9 @@
                                 <span class="message-status">
                                 </span>
                                 <span class="message-info">
-                                        <span class="blue"><%= message.updated_at.strftime('%b %d %H:%M') %></span>
+                                        <span class="blue"><%= message.updated_at.strftime('%b %e %H:%M') %></span>
                                 </span>
-                                <%= link_to edit_message_path(message), title: 'Edit Message', remote: true do %>
+                                <%= link_to edit_message_path(message), title: 'edit message', remote: true do %>
                                   <strong class="blue"><%= send_tos(message) %></strong><br>
                                         <%= subject(message) %>
                                 <% end %>
@@ -18,52 +18,55 @@
                 </ul>
         </li>
         <li class="big-menu grey-gradient with-right-arrow">
-                <span><span class="list-count"><%= @sent.size %></span>Sent</span>
+                <span><span class="list-count"><%= @sent.size %></span>sent</span>
                 <ul class="message-menu">
-                  <% @sent.each do |message| %>
+                  <% @sent.each do |envelope| %>
                         <li>
                                 <span class="message-status">
                                 </span>
                                 <span class="message-info">
-                                        <span class="blue"><%= message.updated_at.strftime('%b %d %H:%M') %></span>
+                                        <span class="blue"><%= sent_at(envelope) %></span>
                                 </span>
-                                <%= link_to message_path(message), title: 'View Message', remote: true do %>
-                                  <strong class="blue"><%= send_tos(message) %></strong><br>
-                                        <%= subject(message) %>
+                                <%= link_to message_path(envelope.message), title: 'view message', remote: true do %>
+                                  <strong class="blue"><%= send_tos(envelope.message) %></strong><br>
+                                        <%= subject(envelope) %>
                                 <% end %>
                         </li>
                   <% end %>
                 </ul>
         </li>
         <li class="big-menu grey-gradient with-right-arrow">
-                <span><span class="list-count"><%= @trashed.size %></span>Trash</span>
+                <span><span class="list-count"><%= @trash.size %></span>trash</span>
                 <ul class="message-menu">
-                  <% @trashed.each do |trash| %>
+                  <% @trash.each do |envelope| %>
                         <li>
                                 <span class="message-status">
                                 </span>
                                 <span class="message-info">
-                                        <span class="blue"><%= sent_at(trash) %></span>
+                                        <span class="blue"><%= sent_at(envelope) %></span>
                                 </span>
-                                <%= trash_link trash %>
+                                <%= link_to message_path(envelope.message), title: 'view message', remote: true do %>
+                                    <strong class="blank"><%= envelope.author %></strong><br />
+                                    <%= subject(envelope) %>
+                                <% end %>
                         </li>
                   <% end %>
                 </ul>
         </li>
-      <% @envelopes.each do |envelope| %>
+      <% @inbox.each do |envelope| %>
         <li class="message-menu">
                 <span class="message-status">
-                        <a href="#" class="unstarred" title="Not starred">Not starred</a>
+                        <a href="#" class="unstarred" title="not starred">not starred</a>
                       <% if !envelope.is_read? %>
-                        <a href="#" class="new-message" title="Mark as read">New</a>
+                          <a href="#" class="new-message" title="Mark as read">New</a>
                       <% end %>
                 </span>
                 <span class="message-info">
-                        <span class="blue"><%= envelope.created_at.strftime('%b %d %H:%M') %></span>
+                        <span class="blue"><%= sent_at(envelope) %></span>
                 </span>
                 <%= link_to message_path(envelope.message), title: 'View Message', remote: true do %>
-                        <strong class="blue"><%= envelope.message.author.full_name %></strong><br>
-                        <%= subject(envelope.message) %>
+                        <strong class="blue"><%= envelope.from %></strong><br>
+                        <%= subject(envelope) %>
                 <% end %>
         </li>
       <% end %>

@@ -4,10 +4,6 @@ class Envelope < ActiveRecord::Base
   belongs_to :message
   belongs_to :recipient, class_name: 'User', foreign_key: :recipient_id
 
-  SendTo = 'to'
-  CopyTo = 'cc'
-  BlindCopyTo = 'bcc'
-
   scope :belongs_to_user, lambda { |user_id| where(recipient_id: user_id) }
   scope :inbox, where(trash_flag: false, author_flag: false)
   scope :unread, where(read_flag: false)
@@ -31,11 +27,19 @@ class Envelope < ActiveRecord::Base
     self.trash_flag
   end
 
+  def is_deleted?
+    self.delete_flag
+  end
+
   def mark_as_read
     self.update_attributes(read_flag: true)
   end
 
   def trash
     self.update_attributes(trash_flag: true)
+  end
+
+  def delete
+    self.update_attributes(delete_flag: true)
   end
 end

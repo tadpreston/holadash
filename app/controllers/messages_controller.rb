@@ -68,6 +68,14 @@ class MessagesController < ApplicationController
     end
   end
 
+  def delete
+    message = Message.find params[:message_id]
+    message.delete
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
+
   def destroy
     message = Message.find params[:id]
     message.destroy
