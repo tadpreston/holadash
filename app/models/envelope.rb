@@ -1,5 +1,5 @@
 class Envelope < ActiveRecord::Base
-  attr_accessible :message_id, :read_flag, :recipient_id, :trash_flag, :author_flag
+  attr_accessible :message_id, :read_flag, :recipient_id, :trash_flag, :author_flag, :delete_flag
 
   belongs_to :message
   belongs_to :recipient, class_name: 'User', foreign_key: :recipient_id
@@ -11,7 +11,7 @@ class Envelope < ActiveRecord::Base
   scope :belongs_to_user, lambda { |user_id| where(recipient_id: user_id) }
   scope :inbox, where(trash_flag: false, author_flag: false)
   scope :unread, where(read_flag: false)
-  scope :trashed, where(trash_flag: true)
+  scope :trash, where(trash_flag: true, delete_flag: false)
   scope :sent, where(trash_flag: false, author_flag: true)
   scope :order_by_sent_at, joins(:message).order('messages.sent_at ASC')
 

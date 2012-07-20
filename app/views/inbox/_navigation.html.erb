@@ -38,17 +38,14 @@
         <li class="big-menu grey-gradient with-right-arrow">
                 <span><span class="list-count"><%= @trashed.size %></span>Trash</span>
                 <ul class="message-menu">
-                  <% @trashed.each do |envelope| %>
+                  <% @trashed.each do |trash| %>
                         <li>
                                 <span class="message-status">
                                 </span>
                                 <span class="message-info">
-                                        <span class="blue"><%= envelope.sent_at.strftime('%b %d %H:%M') %></span>
+                                        <span class="blue"><%= sent_at(trash) %></span>
                                 </span>
-                                <%= link_to message_path(envelope.message), title: 'View Message', remote: true do %>
-                                  <strong class="blue"><%= envelope.from %></strong><br>
-                                        <%= subject(envelope.message) %>
-                                <% end %>
+                                <%= trash_link trash %>
                         </li>
                   <% end %>
                 </ul>

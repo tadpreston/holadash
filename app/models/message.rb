@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
-  attr_accessible :body, :subject, :author_id, :send_to, :copy_to, :blind_copy_to, :sent_at, :status
+  attr_accessible :body, :subject, :author_id, :send_to, :copy_to, :blind_copy_to, :sent_at, :status, :trash_flag, :delete_flag
 
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
   has_many   :envelopes, dependent: :destroy
@@ -9,12 +9,13 @@ class Message < ActiveRecord::Base
 
   scope :belongs_to_user, lambda { |user_id| where(author_id: user_id) }
   scope :draft, where(status: StatusDraft)
-  scope :sent, joins(:envelopes).where("status = ? and envelopes.trash_flag = ?", StatusSent, false)
+  scope :sent, where(status: StatusSent, trash_flag: false, delete_flag: false)
+  scope :trash, where(trash_flag: true, delete_flag: false)
 
   def deliver
     raise Exceptions::NoSendToRecipients if self.send_to.blank?
 
-    self.envelopes.create(recipient_id: self.author_id, author_flag: true)
+#   self.envelopes.create(recipient_id: self.author_id, author_flag: true)
 
     (self.send_to.split(', ') + self.copy_to.split(', ')).each do |recipient|
       user = User.find_by_display_name(recipient)
@@ -55,5 +56,13 @@ class Message < ActiveRecord::Base
     new_body = new_msg_hdr + self.body
 
     Message.new(subject: new_subject, body: new_body)
+  end
+
+  def send_to_trash
+    self.update_attributes(trash_flag: true)
+  end
+
+  def delete
+    self.update_attributes(delete_flag: true)
   end
 end

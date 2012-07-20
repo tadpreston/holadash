@@ -121,4 +121,20 @@ class MessageTest < ActiveSupport::TestCase
       assert_raise(Exceptions::MessageNotSent) { message.reply }
     end
   end
+
+  context 'send_to_trash method' do
+    should 'set trash_flag to true' do
+      message = FactoryGirl.create(:sent_message)
+      message.send_to_trash
+      assert message.trash_flag
+    end
+  end
+
+  context 'delete method' do
+    should 'set delete_flag to true' do
+      message = FactoryGirl.create(:sent_message)
+      message.delete
+      assert message.delete_flag
+    end
+  end
 end
