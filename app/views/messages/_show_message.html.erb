@@ -21,13 +21,18 @@
                         <% end %>
                 </span>
                 <span class="button-group children-tooltip">
+                      <% unless @envelope.is_trash? %>
                         <%= link_to envelope_trash_path(@envelope), class: 'button', title: 'Move to trash', remote: true, method: :put do %>
                           <span class="icon-trash"></span>
                         <% end %>
+                      <% end %>
                         <a href="#" class="button" title="Mark as important"><span class="icon-flag"></span></a>
                 </span>
                 <%= link_to "#", class: 'button with-tooltip', id: 'close-message', title: 'Close Message' do %>
                   <span class="icon-cross-round"></span>
+                <% end %>
+                <% if @envelope.is_trash? %>
+                        <%= link_to 'Delete', envelope_delete_path(@envelope), class: 'button red-gradient icon-trash', title: 'Delete message', confirm: 'Are you sure?', method: :put, remote: true %>
                 <% end %>
         </div>
 
