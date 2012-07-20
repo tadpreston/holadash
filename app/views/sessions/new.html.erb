@@ -4,6 +4,13 @@
 
 		<div id="form-wrapper">
 
+    <% if flash[:notice] %>
+      <p class="message green-gradient glossy">
+         <a href="#" title="Hide message" class="close">X</a>
+          <%= flash[:notice] %>
+      </p>
+    <% end %>
+
 			<div id="form-block" class="scratch-metal">
 				<div id="form-viewport">
 

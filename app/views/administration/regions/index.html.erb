@@ -7,9 +7,12 @@
 <% end %>
 
 <div class="with-padding">
-  <p class="message green-gradient glossy">
-    <a href="#" title="Hide notice" class="close">X</a>
-    <%= notice %></p>
+
+  <% if flash[:notice] %>
+    <p class="message green-gradient glossy">
+      <a href="#" title="Hide notice" class="close">X</a>
+      <%= flash[:notice] %></p>
+  <% end %>
 
   <div class="table-header blue-gradient">
     <%= link_to 'New Region', new_administration_region_path, class: 'button compact blue-gradient glossy' %>
