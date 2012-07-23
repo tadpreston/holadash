@@ -7,7 +7,7 @@
 <% end %>
 </h5>
 
-<div class="large-box-shadow white-gradient with-border">
+<div id="message-main" class="large-box-shadow white-gradient with-border">
 
         <div class="button-height with-mid-padding silver-gradient no-margin-top">
                 <span class="button-group children-tooltip">
@@ -45,7 +45,9 @@
 <script>
   $(function() {
     $("#close-message").bind( 'click', function(event) {
-      $('#message-panel').html("");
+      $('#message-main').fadeAndRemove('fast', function() {
+        $('#message-panel').html('');
+      });
     });
   });
 </script>

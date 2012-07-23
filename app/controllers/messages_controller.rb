@@ -26,7 +26,7 @@ class MessagesController < ApplicationController
         @message.deliver
       end
       respond_to do |format|
-        format.js { render layout: false }
+        format.js { render 'close_message', layout: false }
       end
     else
     end
@@ -39,7 +39,7 @@ class MessagesController < ApplicationController
         @message.deliver
       end
       respond_to do |format|
-        format.js { render layout: false }
+        format.js { render 'close_message', layout: false }
       end
     else
     end
@@ -49,14 +49,14 @@ class MessagesController < ApplicationController
     @orig_msg = Message.find(params[:message_id])
     @message = @orig_msg.reply(params[:reply_type])
     respond_to do |format|
-      format.js { render layout: false }
+      format.js { render 'new', layout: false }
     end
   end
 
   def forward
     @message = Message.find(params[:message_id]).forward
     respond_to do |format|
-      format.js { render layout: false }
+      format.js { render 'new', layout: false }
     end
   end
 
@@ -64,7 +64,7 @@ class MessagesController < ApplicationController
     message = Message.find params[:message_id]
     message.send_to_trash
     respond_to do |format|
-      format.js { render layout: false }
+      format.js { render 'close_message', layout: false }
     end
   end
 
@@ -72,7 +72,7 @@ class MessagesController < ApplicationController
     message = Message.find params[:message_id]
     message.delete
     respond_to do |format|
-      format.js { render layout: false }
+      format.js { render 'close_message', layout: false }
     end
   end
 
@@ -81,7 +81,7 @@ class MessagesController < ApplicationController
     message.destroy
 
     respond_to do |format|
-      format.js { render layout: false }
+      format.js { render 'close_message', layout: false }
     end
   end
 end

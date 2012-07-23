@@ -11,7 +11,7 @@ class EnvelopesController < ApplicationController
     envelope = Envelope.find(params[:envelope_id])
     envelope.delete
     respond_to do |format|
-      format.js { render layout: false }
+      format.js { render 'trash', layout: false }
     end
   end
 end

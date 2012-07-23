@@ -1,52 +1,54 @@
-<div class="panel-control">
-  <%= link_to '#', class: 'button float-right', id: 'cancel-message' do %>
-    <span class="button-icon red-gradient glossy"><span class="icon-cross-round"></span></span>
-    Cancel
-  <% end %>
-  <%= link_to '#', class: 'button', id: 'send-message' do %>
-    <span class="button-icon blue-gradient glossy"><span class="icon-outbox"></span></span>
-    Send
-  <% end %>
-  <%= link_to '#', class: 'button', id: 'save-message' do %>
-    <span class="button-icon green-gradient glossy"><span class="icon-download"></span></span>
-      Save
-  <% end %>
-  <% unless @message.new_record? %>
-  <%= link_to @message, confirm: 'Are you sure?', method: :delete, remote: true, class: 'button', id: 'delete-message' do %>
-    <span class="button-icon red-gradient glossy"><span class="icon-trash"></span></span>
-    Delete
-  <% end %>
-  <% end %>
+<div id="message-main">
+  <div class="panel-control">
+    <%= link_to '#', class: 'button float-right', id: 'cancel-message' do %>
+      <span class="button-icon red-gradient glossy"><span class="icon-cross-round"></span></span>
+      Cancel
+    <% end %>
+    <%= link_to '#', class: 'button', id: 'send-message' do %>
+      <span class="button-icon blue-gradient glossy"><span class="icon-outbox"></span></span>
+      Send
+    <% end %>
+    <%= link_to '#', class: 'button', id: 'save-message' do %>
+      <span class="button-icon green-gradient glossy"><span class="icon-download"></span></span>
+        Save
+    <% end %>
+    <% unless @message.new_record? %>
+    <%= link_to @message, method: :delete, remote: true, class: 'confirm button', id: 'delete-message' do %>
+      <span class="button-icon red-gradient glossy"><span class="icon-trash"></span></span>
+      Delete
+    <% end %>
+    <% end %>
+  </div>
+
+  <br />
+
+  <fieldset class="fieldset white-gradient">
+    <%= form_for @message, remote: true do |f| %>
+
+      <p class="button-height inline-label" id="send-to">
+        <%= f.label :send_to, 'To:', class: 'label' %>
+        <%= f.text_field :send_to, class: 'input full-width' %>
+      </p>
+
+      <p class="button-height inline-label">
+        <%= f.label :copy_to, 'Cc:', class: 'label' %>
+        <%= f.text_field :copy_to, class: 'input full-width' %>
+      </p>
+
+      <p class="button-height inline-label">
+        <%= f.label :subject, class: 'label' %>
+        <%= f.text_field :subject, class: 'input full-width' %>
+      </p>
+
+      <p class="button-height inline-label">
+        <%= f.label :body, class: 'label' %>
+        <%= f.text_area :body %>
+      </p>
+
+      <%= hidden_field_tag 'action_type' %>
+    <% end %>
+  </fieldset>
 </div>
-
-<br />
-
-<fieldset class="fieldset white-gradient">
-  <%= form_for @message, remote: true do |f| %>
-
-    <p class="button-height inline-label" id="send-to">
-      <%= f.label :send_to, 'To:', class: 'label' %>
-      <%= f.text_field :send_to, class: 'input full-width' %>
-    </p>
-
-    <p class="button-height inline-label">
-      <%= f.label :copy_to, 'Cc:', class: 'label' %>
-      <%= f.text_field :copy_to, class: 'input full-width' %>
-    </p>
-
-    <p class="button-height inline-label">
-      <%= f.label :subject, class: 'label' %>
-      <%= f.text_field :subject, class: 'input full-width' %>
-    </p>
-
-    <p class="button-height inline-label">
-      <%= f.label :body, class: 'label' %>
-      <%= f.text_area :body %>
-    </p>
-
-    <%= hidden_field_tag 'action_type' %>
-  <% end %>
-</fieldset>
 
 <script>
   var editorTextarea = $('#message_body'),
@@ -136,7 +138,13 @@
       $("form").submit();
     });
     $("#cancel-message").bind( 'click', function( event ) {
-      $('#message-panel').html("");
+      $('#message-main').fadeAndRemove('fast', function() {
+        $('#message-panel').html('');
+      });
     });
+//    $("#delete-message").bind( 'click', function( event ) {
+//      alert('hi there');
+//      return false;
+//    });
   });
 </script>
