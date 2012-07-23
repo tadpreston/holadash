@@ -1,27 +1,45 @@
-<h1>Employee - <%= @user.full_name %></h1>
+<% content_for :main_title do %>
+  <h1>Employee - <%= @user.full_name %></h1>
+<% end %>
 
-<p id="notice"><%= notice %></p>
+<% content_for :additional_styles do %>
+<link rel="stylesheet" href="/css/styles/form.css?v=1">
+<% end %>
 
-<p>
-  <b>Employee:</b>
-  <%= @user.employee_id %>
-</p>
+<div class="with-padding">
+  <% if flash[:notice] %>
+    <p class="message green-gradient glossy">
+      <span class="close show-on-parent-hover">X</span>
+      <%= flash[:notice] %></p>
+  <% end %>
 
-<p>
-  <b>Username:</b>
-  <%= @user.username %>
-</p>
+  <p>
+    <b>Employee:</b>
+    <%= @user.employee_id %>
+  </p>
 
-<p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
+  <p>
+    <b>Username:</b>
+    <%= @user.username %>
+  </p>
 
-<p>
-  <b>Roles:</b>
-  <%= @user.roles.split('|').collect {|r| r.humanize}.join(',')  %>
-</p>
+  <p>
+    <b>Email:</b>
+    <%= @user.email %>
+  </p>
 
+  <p>
+    <b>Roles:</b>
+    <%= @user.roles.split('|').collect {|r| r.humanize}.join(',')  %>
+  </p>
 
-<%= link_to 'Edit', edit_administration_user_path(@user) %> |
-<%= link_to 'Back', administration_users_path %>
+  <p class="button-height">
+    <span class="button-group">
+      <%= link_to 'Edit Employee', edit_administration_user_path(@user), class: 'button' %> 
+      <% @user.clubs.each do |club| %>
+        <%= link_to club.name, administration_region_club_path(club.region_id, club.id), class: 'button' %>
+      <% end %>
+    </span>
+  </p>
+
+</div>
