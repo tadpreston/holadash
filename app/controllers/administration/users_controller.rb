@@ -27,7 +27,7 @@ module Administration
         @user.log_create(current_user.full_name,"#{@user.full_name} was created")
         redirect_url = session[:referrer]
         session[:referrer] = nil
-        redirect_to redirect_url
+        redirect_to redirect_url, notice: "#{@user.full_name} was successfully created!"
       else
         @club = Club.find params[:user][:club_ids][0]
         render action: 'new'
@@ -41,7 +41,7 @@ module Administration
         @user.log_update(current_user.full_name, "#{@user.full_name} was updated")
         redirect_url = session[:referrer]
         session[:referrer] = nil
-        redirect_to redirect_url
+        redirect_to redirect_url, notice: "#{@user.full_name} was successfully updated!"
       else
         render action: "edit"
       end
@@ -51,7 +51,7 @@ module Administration
       @user = User.find(params[:id])
       @user.destroy
 
-      redirect_to request.referrer
+      redirect_to request.referrer, notice: "#{@user.full_name} was successfully deleted!"
     end
   end
 end

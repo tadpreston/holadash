@@ -8,7 +8,11 @@
 <% end %>
 
 <div class="with-padding">
-  <p id="notice"><%= notice %></p>
+  <% if flash[:notice] %>
+    <p class="message green-gradient glossy">
+      <span class="close show-on-parent-hover">X</span>
+      <%= flash[:notice] %></p>
+  <% end %>
 
   <p>
     <b>Address:</b>
