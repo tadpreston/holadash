@@ -1,73 +1,77 @@
-<ul class="unstyled-list open-on-panel-content">
-        <li class="big-menu grey-gradient with-right-arrow">
-                <span><span class="list-count"><%= @drafts.size %></span>Drafts</span>
-                <ul class="message-menu">
-                  <% @drafts.each do |message| %>
-                        <li>
-                                <span class="message-status">
-                                </span>
-                                <span class="message-info">
-                                        <span class="blue"><%= message.updated_at.strftime('%b %e %H:%M') %></span>
-                                </span>
-                                <%= link_to edit_message_path(message), title: 'edit message', remote: true do %>
-                                  <strong class="blue"><%= send_tos(message) %></strong><br>
-                                        <%= subject(message) %>
-                                <% end %>
-                        </li>
+<div class="navigable">
+
+  <ul class="unstyled-list open-on-panel-content">
+          <li class="big-menu grey-gradient with-right-arrow">
+                  <span><span class="list-count"><%= @drafts.size %></span>Drafts</span>
+                  <ul class="message-menu">
+                    <% @drafts.each do |message| %>
+                          <li>
+                                  <span class="message-status">
+                                  </span>
+                                  <span class="message-info">
+                                          <span class="blue"><%= message.updated_at.strftime('%b %e %H:%M') %></span>
+                                  </span>
+                                  <%= link_to edit_message_path(message), title: 'edit message', remote: true do %>
+                                    <strong class="blue"><%= send_tos(message) %></strong><br>
+                                          <%= subject(message) %>
+                                  <% end %>
+                          </li>
+                    <% end %>
+                  </ul>
+          </li>
+          <li class="big-menu grey-gradient with-right-arrow">
+                  <span><span class="list-count"><%= @sent.size %></span>sent</span>
+                  <ul class="message-menu">
+                    <% @sent.each do |envelope| %>
+                          <li>
+                                  <span class="message-status">
+                                  </span>
+                                  <span class="message-info">
+                                          <span class="blue"><%= sent_at(envelope) %></span>
+                                  </span>
+                                  <%= link_to message_path(envelope.message), title: 'view message', remote: true do %>
+                                    <strong class="blue"><%= send_tos(envelope.message) %></strong><br>
+                                          <%= subject(envelope) %>
+                                  <% end %>
+                          </li>
+                    <% end %>
+                  </ul>
+          </li>
+          <li class="big-menu grey-gradient with-right-arrow">
+                  <span><span class="list-count"><%= @trash.size %></span>trash</span>
+                  <ul class="message-menu">
+                    <% @trash.each do |envelope| %>
+                          <li>
+                                  <span class="message-status">
+                                  </span>
+                                  <span class="message-info">
+                                          <span class="blue"><%= sent_at(envelope) %></span>
+                                  </span>
+                                  <%= link_to message_path(envelope.message), title: 'view message', remote: true do %>
+                                      <strong class="blue"><%= envelope.from %></strong><br />
+                                      <%= subject(envelope) %>
+                                  <% end %>
+                          </li>
+                    <% end %>
+                  </ul>
+          </li>
+        <% @inbox.each do |envelope| %>
+          <li class="message-menu">
+                  <span class="message-status">
+                          <a href="#" class="unstarred" title="not starred">not starred</a>
+                        <% if !envelope.is_read? %>
+                            <a href="#" class="new-message" title="Mark as read">New</a>
+                        <% end %>
+                  </span>
+                  <span class="message-info">
+                          <span class="blue"><%= sent_at(envelope) %></span>
+                  </span>
+                  <%= link_to message_path(envelope.message), title: 'View Message', remote: true do %>
+                          <strong class="blue"><%= envelope.from %></strong><br>
+                          <%= subject(envelope) %>
                   <% end %>
-                </ul>
-        </li>
-        <li class="big-menu grey-gradient with-right-arrow">
-                <span><span class="list-count"><%= @sent.size %></span>sent</span>
-                <ul class="message-menu">
-                  <% @sent.each do |envelope| %>
-                        <li>
-                                <span class="message-status">
-                                </span>
-                                <span class="message-info">
-                                        <span class="blue"><%= sent_at(envelope) %></span>
-                                </span>
-                                <%= link_to message_path(envelope.message), title: 'view message', remote: true do %>
-                                  <strong class="blue"><%= send_tos(envelope.message) %></strong><br>
-                                        <%= subject(envelope) %>
-                                <% end %>
-                        </li>
-                  <% end %>
-                </ul>
-        </li>
-        <li class="big-menu grey-gradient with-right-arrow">
-                <span><span class="list-count"><%= @trash.size %></span>trash</span>
-                <ul class="message-menu">
-                  <% @trash.each do |envelope| %>
-                        <li>
-                                <span class="message-status">
-                                </span>
-                                <span class="message-info">
-                                        <span class="blue"><%= sent_at(envelope) %></span>
-                                </span>
-                                <%= link_to message_path(envelope.message), title: 'view message', remote: true do %>
-                                    <strong class="blue"><%= envelope.from %></strong><br />
-                                    <%= subject(envelope) %>
-                                <% end %>
-                        </li>
-                  <% end %>
-                </ul>
-        </li>
-      <% @inbox.each do |envelope| %>
-        <li class="message-menu">
-                <span class="message-status">
-                        <a href="#" class="unstarred" title="not starred">not starred</a>
-                      <% if !envelope.is_read? %>
-                          <a href="#" class="new-message" title="Mark as read">New</a>
-                      <% end %>
-                </span>
-                <span class="message-info">
-                        <span class="blue"><%= sent_at(envelope) %></span>
-                </span>
-                <%= link_to message_path(envelope.message), title: 'View Message', remote: true do %>
-                        <strong class="blue"><%= envelope.from %></strong><br>
-                        <%= subject(envelope) %>
-                <% end %>
-        </li>
-      <% end %>
-</ul>
+          </li>
+        <% end %>
+  </ul>
+
+</div>

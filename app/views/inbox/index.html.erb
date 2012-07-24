@@ -21,13 +21,9 @@
             <%= link_to "Refresh", inbox_refresh_path, class: 'button icon-undo', remote: true %>
     </div>
 
-    <div class="panel-load-target scrollable" style="height:490px">
+    <div id="inbox-navigation" class="panel-load-target scrollable" style="height:490px">
 
-            <div id="inbox-navigation" class="navigable">
-
-                    <%= render 'navigation' %>
-
-            </div>
+       <%= render 'navigation' %>
 
     </div>
 
