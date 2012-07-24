@@ -26,7 +26,9 @@
                           <span class="icon-trash"></span>
                         <% end %>
                       <% end %>
-                        <a href="#" class="button" title="Mark as important"><span class="icon-flag"></span></a>
+                       <%= link_to envelope_mark_important_path(@envelope), class: 'button', title: 'Mark as important', remote: true, method: :put do %>
+                         <span class="icon-flag"></span>
+                       <% end %>
                 </span>
                 <%= link_to "#", class: 'button with-tooltip', id: 'close-message', title: 'Close Message' do %>
                   <span class="icon-cross-round"></span>

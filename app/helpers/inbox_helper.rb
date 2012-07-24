@@ -21,4 +21,12 @@ module InboxHelper
     message = item.instance_of?(Message) ? item : item.message
     message.sent_at.strftime('%b %e %H:%M')
   end
+
+  def starred(item)
+    if item.is_important?
+      content_tag(:a, 'important', class: 'starred', title: 'important')
+    else
+      content_tag(:a, 'mark important', class: 'unstarred', title: 'mark important')
+    end
+  end
 end

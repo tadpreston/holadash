@@ -58,7 +58,7 @@
         <% @inbox.each do |envelope| %>
           <li class="message-menu">
                   <span class="message-status">
-                          <a href="#" class="unstarred" title="not starred">not starred</a>
+                        <%= starred(envelope) %>
                         <% if !envelope.is_read? %>
                             <a href="#" class="new-message" title="Mark as read">New</a>
                         <% end %>

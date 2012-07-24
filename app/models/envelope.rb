@@ -1,5 +1,5 @@
 class Envelope < ActiveRecord::Base
-  attr_accessible :message_id, :read_flag, :recipient_id, :trash_flag, :author_flag, :delete_flag
+  attr_accessible :message_id, :read_flag, :recipient_id, :trash_flag, :author_flag, :delete_flag, :importance_flag
 
   belongs_to :message
   belongs_to :recipient, class_name: 'User', foreign_key: :recipient_id
@@ -41,5 +41,13 @@ class Envelope < ActiveRecord::Base
 
   def delete
     self.update_attributes(delete_flag: true)
+  end
+
+  def mark_important
+    self.update_attributes(importance_flag: true)
+  end
+
+  def is_important?
+    self.importance_flag
   end
 end

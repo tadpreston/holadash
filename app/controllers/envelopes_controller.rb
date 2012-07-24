@@ -14,4 +14,12 @@ class EnvelopesController < ApplicationController
       format.js { render 'trash', layout: false }
     end
   end
+
+  def mark_important
+    envelope = Envelope.find(params[:envelope_id])
+    envelope.mark_important
+    respond_to do |format|
+      format.js { render layout: false }
+    end
+  end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120719173122) do
+ActiveRecord::Schema.define(:version => 20120724183631) do
 
   create_table "club_users", :force => true do |t|
     t.integer  "club_id"
@@ -31,12 +31,13 @@ ActiveRecord::Schema.define(:version => 20120719173122) do
   create_table "envelopes", :force => true do |t|
     t.integer  "message_id"
     t.integer  "recipient_id"
-    t.boolean  "read_flag",    :default => false
-    t.boolean  "trash_flag",   :default => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "author_flag",  :default => false
-    t.boolean  "delete_flag",  :default => false
+    t.boolean  "read_flag",       :default => false
+    t.boolean  "trash_flag",      :default => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "author_flag",     :default => false
+    t.boolean  "delete_flag",     :default => false
+    t.boolean  "importance_flag", :default => false
   end
 
   add_index "envelopes", ["message_id"], :name => "index_envelopes_on_message_id"

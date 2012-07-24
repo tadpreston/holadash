@@ -9,6 +9,7 @@ Portal::Application.routes.draw do
   get 'inbox/refresh', to: 'inbox#refresh', as: 'inbox_refresh'
   put 'envelopes/:envelope_id/trash', to: 'envelopes#trash', as: 'envelope_trash'
   put 'envelopes/:envelope_id/delete', to: 'envelopes#delete', as: 'envelope_delete'
+  put 'envelopes/:envelope_id/mark_important', to: 'envelopes#mark_important', as: 'envelope_mark_important'
 
   resources :messages do
     get 'reply'
